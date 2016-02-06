@@ -6,68 +6,94 @@
 /*   By: guiricha <guiricha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/02 12:56:04 by guiricha          #+#    #+#             */
-/*   Updated: 2016/02/02 14:21:22 by guiricha         ###   ########.fr       */
+/*   Updated: 2016/02/06 17:27:31 by guiricha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdarg.h>
 #include <stdlib.h>
+#include <stdio.h> //	REMOVE BEFORE PUSHING
 #include "libft/libft.h"
+#include "ft_asprintf.h"
 
-int *detect_type_and_stock(char *ret, const char * restrict format)
+
+
+int	modify_form(t_form *c, const char *restrict f)
 {
 	int		i;
-	size_t	ret_len;
+	int		bck;
 
-	i = -1;
-	while (format[++i])
+	i = get_next_percent(f + i);
+	if (i >= 0)
 	{
-		if (format[i] == '%')
-			if (format[i + 1])
-				if (format[i + 1] == 'i' || format[i] == 'd')
-					
-
+		while (isvalid(f[i]))
+		{
+			if (f[i] == '+')
+			{
+				c->plus = 1;
+				c->space = 0;
+			}
+			if (f[i] == ' ' && !c->plus)
+				c->space = 1;
+			if (f[i] == '-')
+			{
+				c->left = 1;
+				c->zero = 0;
+			}
+			if (f[i] == '0' && !c->left && (f[i - 1] == '%' || !isnum(f[i - 1])))
+				c->zero = 1;
+			if (f[i] == '#')
+				c->force = 1;
+			if (f[i] == '.')
+			{
+				c->prec = check_prec(f + i++);
+				while (isnum(f[i + 1]))
+					i++;
+				i++;
+				continue ;
+			}
+			if (isnum(f[i]) && f[i - 1] != '.')
+			{
+				bck = c->width;
+				c->width = ft_atoi(f + i);
+				if (c->width == 0)
+					c->width = bck;
+				while (isnum(f[i + 1]))
+					i++;
+			}
+			i++;
+		}
 	}
-
+	return (i);
 }
 
 int	ft_asprintf(char **ret, const char * restrict format, ...)
 {
 	va_list	ap;
+	t_form	*c;
 	int		i;
-	int 	type;
-	int		last;
-	char	*types;
 
-	type = 0;
-	i = -1;
-	va_start(ap, format);
-	if (!format)
-		return (-1);
-	if (!ret)
-		return (-1);
-	while (format[++i])
-	{
-		last = detect_type_and_stock(types, format + i);
-		i += last;
-	}
-	if (type == 1)
-		*ret = va_arg(ap, char *);
-	ft_putstr(*ret);
-	va_end(ap);
-				
-	return (type);
+	i = 0;
+	//tests
+	reinit_form(&c);
+	i = modify_form(c, format);
+	printf("precision :%15d\nspace     :%15d\nzero      :%15d\nleft      :%15d\nplus      :%15d\nforce     :%15d\nwidth     :%15d\n", c->prec, c->space, c->zero, c->left, c->plus, c->force, c->width);
+	reinit_form(&c);
+	modify_form(c, format);
+	printf("precision :%15d\nspace     :%15d\nzero      :%15d\nleft      :%15d\nplus      :%15d\nforce     :%15d\nwidth     :%15d\n", c->prec, c->space, c->zero, c->left, c->plus, c->force, c->width);
+	return (0);
 }
 
 int main(void)
 {
-	const char * restrict format;
-	char *ret;
+	const char *restrict format;
 	char *string;
 	int test;
+	char *ret;
+	int	i;
 
-	ret = (char *)malloc(sizeof(char) * 5);
+	i = 1;
 	string = "test\0";
-	format = "%s";
+	format = " %#+42533253-3349845.4-d       %42d";
 	test = ft_asprintf(&ret, format, string);
 }

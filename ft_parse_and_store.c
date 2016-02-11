@@ -6,13 +6,41 @@
 /*   By: guiricha <guiricha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/09 14:31:19 by guiricha          #+#    #+#             */
-/*   Updated: 2016/02/09 18:31:48 by guiricha         ###   ########.fr       */
+/*   Updated: 2016/02/11 13:35:36 by guiricha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	modify_form(t_form *c, const char *restrict f)
+int	get_width_nd_prec(t_form *c, const char *restrict f, int i, int *bck)
+{
+	if (f[i] == '.' && !isvalid(f[i + 1]))
+		c->prec = 0;
+	if (isnum(f[i]) && f[i] != '0')
+	{
+		if (f[i - 1] == '.')
+		{
+			*bck = c->prec;
+			c->prec = check_prec(f + i);
+			while (isnum(f[i]))
+				i++;
+		}
+		else
+		{
+			c->width = ft_atoi(f + i);
+			while(isnum(f[i]))
+				i++;
+		}
+	}
+	return (i);
+}
+/*
+   int	modify_form_more(t_form *c, const char *restrict f, int i)
+   {
+
+   }
+   */
+int	modify_form(t_form *c, const char *restrict f, t_data *d)
 {
 	int		i;
 	int		bck;
@@ -24,25 +52,13 @@ int	modify_form(t_form *c, const char *restrict f)
 			c->prec = 0;
 		if (isnum(f[i]) && f[i] != '0')
 		{
-			if (f[i - 1] == '.')
-			{
-				bck = c->prec;
-				c->prec = check_prec(f + i);
-					while (isnum(f[i]))
-						i++;
-			}
-			else
-			{
-				c->width = ft_atoi(f + i);
-					while(isnum(f[i]))
-						i++;
-			}
+			i = get_width_nd_prec(c, f, i, &bck);
 			continue ;
 		}
 		if (f[i] == '%')
 		{
 			c->percent = 1;
-			return (i + 1);
+			return (i);
 		}
 		if (f[i] == '+')
 		{
@@ -62,5 +78,7 @@ int	modify_form(t_form *c, const char *restrict f)
 			c->force = 1;
 		i++;
 	}
+	if (f[i])
+		d->nargs++;
 	return (i);
 }

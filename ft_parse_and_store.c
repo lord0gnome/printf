@@ -6,7 +6,7 @@
 /*   By: guiricha <guiricha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/09 14:31:19 by guiricha          #+#    #+#             */
-/*   Updated: 2016/02/11 13:35:36 by guiricha         ###   ########.fr       */
+/*   Updated: 2016/02/11 14:01:01 by guiricha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,6 @@ int	modify_form(t_form *c, const char *restrict f, t_data *d)
 			c->force = 1;
 		i++;
 	}
-	if (f[i])
 		d->nargs++;
 	return (i);
 }

@@ -6,53 +6,12 @@
 /*   By: guiricha <guiricha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/09 14:49:10 by guiricha          #+#    #+#             */
-/*   Updated: 2016/02/13 14:25:21 by guiricha         ###   ########.fr       */
+/*   Updated: 2016/02/13 16:42:10 by guiricha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include <stdarg.h>
-
-int	do_va_crap(va_list *current, char type, t_type *var, t_form *info)
-{
-	if (type == 'i' || type == 'd')
-	{
-		if (info->type == 3)
-		{
-			var->ld = va_arg(*current,long);
-		}
-		else
-		{
-			var->ld = va_arg(*current,long);
-		}
-		ft_putll(var->ld);
-	}
-	if (type == 's')
-	{
-		var->s = va_arg(*current, char *);
-		ft_putstr(var->s);
-	}
-	//if (type == 'c' || type == 'H')
-
-		/*   if (type == 'h')
-
-			 if (type == 'j')
-
-			 if (type == )
-
-			 if (type == )
-
-			 if (type == )
-
-			 if (type == )
-
-			 if (type == )
-
-			 if (type == )
-
-			 if (type == )*/
-
-}
 
 int	ft_printf(const char *restrict format, ...)
 {
@@ -68,6 +27,7 @@ int	ft_printf(const char *restrict format, ...)
 	d.nargs = 0;
 	d.ret = 0;
 	d.retbck = 42;
+	result = NULL;
 	while ((d.retbck != d.ret || current->percent != -1) && format[d.ret] && d.ret < ft_strlen(format))
 	{
 		if (!(reinit_form(&current)))

@@ -6,22 +6,22 @@
 /*   By: guiricha <guiricha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/13 14:12:12 by guiricha          #+#    #+#             */
-/*   Updated: 2016/02/13 14:15:40 by guiricha         ###   ########.fr       */
+/*   Updated: 2016/02/13 17:18:11 by guiricha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-void	ft_putll(long n)
+void	ft_putll(long long n)
 {
-		if (n < 0)
-		{
-			ft_putchar('-');
-			n = -n;
-		}
-		if (n >= 10)
-		{
-			ft_putll(n / 10);
-			ft_putll(n % 10);
-		}
-		else
-			ft_putchar(n + 48);
+	if (n < 0)
+	{
+		ft_putchar('-');
+		n = -n;
+	}
+	if (n >= 10)
+	{
+		ft_putll(n / 10);
+		ft_putll(n % 10);
+	}
+	else
+		ft_putchar(n + 48);
 }

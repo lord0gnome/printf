@@ -6,7 +6,7 @@
 /*   By: guiricha <guiricha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/09 15:03:28 by guiricha          #+#    #+#             */
-/*   Updated: 2016/02/13 13:09:00 by guiricha         ###   ########.fr       */
+/*   Updated: 2016/02/13 17:17:46 by guiricha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,32 +63,32 @@ void	print_form(t_form *form)
 {
 	if (form)
 	{
-	ft_putchar('\n');
-	ft_putstr("the precision is :");
-	ft_putnbr(form->prec);
-	ft_putchar('\n');
-	ft_putstr("the width is :");
-	ft_putnbr(form->width);
-	ft_putchar('\n');
-	ft_putstr("the left is :");
-	ft_putnbr(form->left);
-	ft_putchar('\n');
-	ft_putstr("the zero is :");
-	ft_putnbr(form->zero);
-	ft_putchar('\n');
-	ft_putstr("the space is :");
-	ft_putnbr(form->space);
-	ft_putchar('\n');
-	ft_putstr("the plus is :");
-	ft_putnbr(form->plus);
-	ft_putchar('\n');
-	ft_putstr("the force is :");
-	ft_putnbr(form->force);
-	ft_putchar('\n');
-	ft_putstr("the percent is :");
-	ft_putnbr(form->percent);
-	ft_putchar('\n');
-	ft_putstr("the type is :");
-	ft_putnbr(form->type);
+		ft_putchar('\n');
+		ft_putstr("the precision is :");
+		ft_putnbr(form->prec);
+		ft_putchar('\n');
+		ft_putstr("the width is :");
+		ft_putnbr(form->width);
+		ft_putchar('\n');
+		ft_putstr("the left is :");
+		ft_putnbr(form->left);
+		ft_putchar('\n');
+		ft_putstr("the zero is :");
+		ft_putnbr(form->zero);
+		ft_putchar('\n');
+		ft_putstr("the space is :");
+		ft_putnbr(form->space);
+		ft_putchar('\n');
+		ft_putstr("the plus is :");
+		ft_putnbr(form->plus);
+		ft_putchar('\n');
+		ft_putstr("the force is :");
+		ft_putnbr(form->force);
+		ft_putchar('\n');
+		ft_putstr("the percent is :");
+		ft_putnbr(form->percent);
+		ft_putchar('\n');
+		ft_putstr("the type is :");
+		ft_putnbr(form->type);
 	}
 }

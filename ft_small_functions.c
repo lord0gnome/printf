@@ -6,7 +6,7 @@
 /*   By: guiricha <guiricha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/09 15:03:28 by guiricha          #+#    #+#             */
-/*   Updated: 2016/02/11 14:06:32 by guiricha         ###   ########.fr       */
+/*   Updated: 2016/02/13 13:09:00 by guiricha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ int	reinit_form(t_form **form)
 	(*form)->plus = 0;
 	(*form)->force = 0;
 	(*form)->percent = -1;
+	(*form)->type = 0;
 	return (1);
 }
 
@@ -86,5 +87,8 @@ void	print_form(t_form *form)
 	ft_putchar('\n');
 	ft_putstr("the percent is :");
 	ft_putnbr(form->percent);
+	ft_putchar('\n');
+	ft_putstr("the type is :");
+	ft_putnbr(form->type);
 	}
 }

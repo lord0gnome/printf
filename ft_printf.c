@@ -6,19 +6,26 @@
 /*   By: guiricha <guiricha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/09 14:49:10 by guiricha          #+#    #+#             */
-/*   Updated: 2016/02/11 14:08:43 by guiricha         ###   ########.fr       */
+/*   Updated: 2016/02/13 14:25:21 by guiricha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include <stdarg.h>
 
-int	do_va_crap(va_list *current, char type, t_type *var)
+int	do_va_crap(va_list *current, char type, t_type *var, t_form *info)
 {
 	if (type == 'i' || type == 'd')
 	{
-		var->d = va_arg(*current, int);
-		ft_putnbr(var->d);
+		if (info->type == 3)
+		{
+			var->ld = va_arg(*current,long);
+		}
+		else
+		{
+			var->ld = va_arg(*current,long);
+		}
+		ft_putll(var->ld);
 	}
 	if (type == 's')
 	{
@@ -70,7 +77,7 @@ int	ft_printf(const char *restrict format, ...)
 		d.ret += modify_form(current, format + d.ret, &d);
 		if (d.nargs > 0)
 		{
-			do_va_crap(ap, format[d.ret], &var);
+			do_va_crap(ap, format[d.ret], &var, current);
 			d.nargs--;
 		}
 			d.ret++;
@@ -80,6 +87,7 @@ int	ft_printf(const char *restrict format, ...)
 			ft_putchar('%');
 		}
 		//ft_putstr("\n\n");
+	//	print_form(current);
 		//ft_putstr("\n\n");
 	}
 	return (d.ret);

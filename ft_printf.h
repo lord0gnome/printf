@@ -6,7 +6,7 @@
 /*   By: guiricha <guiricha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/09 14:46:03 by guiricha          #+#    #+#             */
-/*   Updated: 2016/02/15 13:31:32 by guiricha         ###   ########.fr       */
+/*   Updated: 2016/02/15 16:34:32 by guiricha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,11 @@ typedef union		u_type
 	wint_t			wc;
 	wchar_t			*ws;
 	unsigned int	o;
+	void			*p;
 }					t_type;
 
 int					ft_putll(long long n, char **str);
+int					ft_putl(long n, char **str);
 int					do_va_crap(va_list *current, t_data *d, t_type *var, t_form *info);
 int					read_until(const char *restrict f, char *result, t_data *d);
 int					ft_printf(const char *restrict format, ...);
@@ -76,5 +78,12 @@ void				ft_putstr(char const *s);
 void				ft_putnbr(int n);
 void				ft_putchar(char c);
 size_t				ft_strlen(const char *str);
+int					print_int(t_form *info, t_data *d, int ret);
+int					print_long(t_form *info, t_data *d, int ret);
+int					print_char(t_form *info, t_data *d, int ret);
+int					print_short(t_form *info, t_data *d, int ret);
+int					ft_putcharspec(char n, char **str);
+int					ft_print_nocon(t_form *info, int ret);
+int					iscon(char c);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: guiricha <guiricha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/09 14:49:10 by guiricha          #+#    #+#             */
-/*   Updated: 2016/02/15 12:40:53 by guiricha         ###   ########.fr       */
+/*   Updated: 2016/02/15 15:51:50 by guiricha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,6 @@ int	ft_printf(const char *restrict format, ...)
 			d->i++;
 		}
 		//todo
-		if (current->percent == 1)
-		{
-			ft_putchar('%');
-		}
 		//ft_putstr("\n\n");
 	//	print_form(current);
 		//ft_putstr("\n\n");

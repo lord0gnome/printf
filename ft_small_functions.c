@@ -6,7 +6,7 @@
 /*   By: guiricha <guiricha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/09 15:03:28 by guiricha          #+#    #+#             */
-/*   Updated: 2016/02/15 13:30:51 by guiricha         ###   ########.fr       */
+/*   Updated: 2016/02/15 15:51:36 by guiricha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 
 int	read_until(const char *restrict f, char *result, t_data *d)
 {
-	char *bck;
-	int i;
+	char	*bck;
+	int		i;
 
 	i = 0;
 	bck = result;
@@ -59,7 +59,7 @@ int	reinit_form(t_form **form)
 
 int	init_data(t_data **d)
 {
-	if (!(*d = (t_data *)malloc(sizeof(t_data)))) 
+	if (!(*d = (t_data *)malloc(sizeof(t_data))))
 		return (-1);
 	(*d)->i = 0;
 	(*d)->ib = 42;

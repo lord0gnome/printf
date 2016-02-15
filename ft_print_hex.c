@@ -6,45 +6,50 @@
 /*   By: guiricha <guiricha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/13 15:39:44 by guiricha          #+#    #+#             */
-/*   Updated: 2016/02/15 13:33:17 by guiricha         ###   ########.fr       */
+/*   Updated: 2016/02/15 14:02:25 by guiricha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include "ft_printf.h"
 
-int	ft_print_hex(long long n, char caps)
+static void	convert_hex(char *str, char caps)
 {
-	long long bck;
-	char *hexstr;
-	int len;
+	size_t	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] > 57)
+			str[i] += (caps ? 7 : 39);
+		i++;
+	}
+}
+
+int			ft_print_hex(long long n, char caps)
+{
+	long long	bck;
+	char		*hexstr;
+	int			len;
+	int			ret;
 
 	bck = n;
-	len = 0;
-	if (n == 0)
-		ft_putstr("0\0");
-	while(bck != 0)
+	len = 1;
+	while (bck / 16)
 	{
-		bck = bck / 16;
 		len++;
-	}
-	bck = n;
-	hexstr = (char *)malloc(sizeof(char) * len + 1);
-	hexstr[len] = '\0';
-	while (bck)
-	{
-		len--;
-		hexstr[len] = (bck % 16) + (48);
 		bck /= 16;
 	}
-	len = 0;
-	while (hexstr[len])
+	hexstr = (char *)malloc(sizeof(char) * len + 1);
+	hexstr[len] = '\0';
+	ret = len;
+	while (len)
 	{
-		if (hexstr[len] > 57)
-			hexstr[len] += (caps ? 7 : 39);
-		len++;
+		len--;
+		hexstr[len] = (n % 16) + (48);
+		n /= 16;
 	}
+	convert_hex(hexstr, caps);
 	ft_putstr(hexstr);
-	return (len);
-
+	return (ret);
 }

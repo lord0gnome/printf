@@ -1,48 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_print_bin.c                                     :+:      :+:    :+:   */
+/*   ft_print_octal.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: guiricha <guiricha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/02/13 16:15:45 by guiricha          #+#    #+#             */
-/*   Updated: 2016/02/15 13:32:17 by guiricha         ###   ########.fr       */
+/*   Created: 2016/02/15 08:32:56 by guiricha          #+#    #+#             */
+/*   Updated: 2016/02/15 13:33:33 by guiricha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
+#include "ft_printf.h"
 
-int	ft_print_bin(long long n)
+int	ft_print_oct(unsigned long long n)
 {
 	long long bck;
-	char *binstr;
+	char *octstr;
 	int len;
+	int	lenret;
 
 	bck = n;
-	len = 0;
+	len = 1;
 	if (n == 0)
 		ft_putstr("0\0");
-	while (bck)
-	{
-		bck /= 2;
+	while (bck /= 8)
 		len++;
-	}
 	bck = n;
-	binstr = (char *)malloc(sizeof(char) * len + 1);
-	binstr[len] = '\0';
+	octstr = (char *)malloc(sizeof(char) * len + 1);
+	octstr[len] = '\0';
+	lenret = len;
 	while (bck)
 	{
 		len--;
-		binstr[len] = (bck % 2) + 48;
-		bck /= 2;
+		octstr[len] = (bck % 8) + (48);
+		bck /= 8;
 	}
-	len = 0;
-	while (binstr[len])
-	{
-		ft_putchar(binstr[len++]);
-		if (len % 8 == 0)
-			ft_putchar(' ');
-	}
-
-	return (len);
+	ft_putstr(octstr);
+	return (lenret);
 }

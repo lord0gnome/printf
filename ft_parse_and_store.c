@@ -6,7 +6,7 @@
 /*   By: guiricha <guiricha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/09 14:31:19 by guiricha          #+#    #+#             */
-/*   Updated: 2016/02/13 17:24:47 by guiricha         ###   ########.fr       */
+/*   Updated: 2016/02/15 12:39:17 by guiricha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,7 @@ int	get_width_nd_prec(t_form *c, const char *restrict f, int i, int *bck)
 	}
 	return (i);
 }
-int	modify_form_more(t_form *c, const char *restrict f, int i)
-{
 
-}
 int	modify_form(t_form *c, const char *restrict f, t_data *d)
 {
 	int		i;
@@ -46,6 +43,10 @@ int	modify_form(t_form *c, const char *restrict f, t_data *d)
 
 	i = 0;
 	j = 0;
+	if (f[i] == '%')
+		i++;
+	else
+		return (0);
 	while (isvalid(f[i]) && f[i])
 	{
 		if (f[i] == '.' && !isvalid(f[i + 1]))

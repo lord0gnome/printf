@@ -6,12 +6,12 @@
 /*   By: guiricha <guiricha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/13 15:39:44 by guiricha          #+#    #+#             */
-/*   Updated: 2016/02/13 16:52:49 by guiricha         ###   ########.fr       */
+/*   Updated: 2016/02/15 13:33:17 by guiricha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/libft.h"
 #include <stdlib.h>
+#include "ft_printf.h"
 
 int	ft_print_hex(long long n, char caps)
 {
@@ -45,6 +45,6 @@ int	ft_print_hex(long long n, char caps)
 		len++;
 	}
 	ft_putstr(hexstr);
-	return (1);
+	return (len);
 
 }

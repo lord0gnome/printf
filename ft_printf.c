@@ -6,7 +6,7 @@
 /*   By: guiricha <guiricha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/09 14:49:10 by guiricha          #+#    #+#             */
-/*   Updated: 2016/02/13 16:42:10 by guiricha         ###   ########.fr       */
+/*   Updated: 2016/02/15 12:40:53 by guiricha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,30 +17,31 @@ int	ft_printf(const char *restrict format, ...)
 {
 	char	*result;
 	t_form *current;
-	t_data d;
+	t_data *d;
 	va_list ap;
 	t_type	var;
 
 	if (!(reinit_form(&current)))
 		return (-1);
+	if (!(init_data(&d)))
+		return (-1);
 	va_start(ap, format);
-	d.nargs = 0;
-	d.ret = 0;
-	d.retbck = 42;
 	result = NULL;
-	while ((d.retbck != d.ret || current->percent != -1) && format[d.ret] && d.ret < ft_strlen(format))
+	while ((d->ib != d->i || current->percent != -1) && format[d->i] && d->i < (int)ft_strlen(format))
 	{
 		if (!(reinit_form(&current)))
 			return (-1);
-		d.ret += read_until(format + d.ret, result);
-		d.retbck = d.ret;
-		d.ret += modify_form(current, format + d.ret, &d);
-		if (d.nargs > 0)
+		d->i += read_until(format + d->i, result, d);
+		d->ib = d->i;
+		d->i += modify_form(current, format + d->i, d);
+		d->type = format[d->i];
+		d->string = NULL;
+		if (d->nargs > 0)
 		{
-			do_va_crap(ap, format[d.ret], &var, current);
-			d.nargs--;
+			d->retplusreal += do_va_crap(&ap, d, &var, current);
+			d->nargs--;
+			d->i++;
 		}
-			d.ret++;
 		//todo
 		if (current->percent == 1)
 		{
@@ -50,5 +51,5 @@ int	ft_printf(const char *restrict format, ...)
 	//	print_form(current);
 		//ft_putstr("\n\n");
 	}
-	return (d.ret);
+	return (d->retplusreal);
 }

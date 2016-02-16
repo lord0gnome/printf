@@ -6,7 +6,7 @@
 /*   By: guiricha <guiricha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/09 14:31:19 by guiricha          #+#    #+#             */
-/*   Updated: 2016/02/15 16:18:54 by guiricha         ###   ########.fr       */
+/*   Updated: 2016/02/16 15:19:43 by guiricha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	modify_form(t_form *c, const char *restrict f, t_data *d)
 
 	i = 0;
 	j = 0;
-	if (f[i] == '%')
+	if (f[i] == '%' && f[i + 1])
 		i++;
 	else
 		return (0);

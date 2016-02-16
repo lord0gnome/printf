@@ -6,7 +6,7 @@
 /*   By: guiricha <guiricha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/09 14:46:03 by guiricha          #+#    #+#             */
-/*   Updated: 2016/02/15 16:34:32 by guiricha         ###   ########.fr       */
+/*   Updated: 2016/02/16 16:12:44 by guiricha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,11 @@ typedef union		u_type
 	wint_t			wc;
 	wchar_t			*ws;
 	unsigned int	o;
+	unsigned long	O;
 	void			*p;
 }					t_type;
 
+int					ft_putllu(long unsigned n, char **str);
 int					ft_putll(long long n, char **str);
 int					ft_putl(long n, char **str);
 int					do_va_crap(va_list *current, t_data *d, t_type *var, t_form *info);

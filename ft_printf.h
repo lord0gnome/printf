@@ -6,7 +6,7 @@
 /*   By: guiricha <guiricha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/09 14:46:03 by guiricha          #+#    #+#             */
-/*   Updated: 2016/02/18 16:00:05 by guiricha         ###   ########.fr       */
+/*   Updated: 2016/02/19 15:36:41 by guiricha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ typedef struct		s_form
 	char			force;
 	char			percent;
 	char			type;
+	char			bigsmall;
 
 }					t_form;
 
@@ -43,6 +44,7 @@ typedef struct		s_data
 typedef union		u_type
 {
 	unsigned char	hh;
+	unsigned short	uh;
 	short			h;
 	int				d;
 	long			ld;
@@ -53,10 +55,15 @@ typedef union		u_type
 	wint_t			wc;
 	wchar_t			*ws;
 	unsigned int	o;
+	long unsigned int O;
+	long long unsigned llu;
+	size_t			z;
 	void			*p;
 }					t_type;
 
-int					ft_putcharstr(char c, char **into);
+int					ft_det_zeroes(int len, t_form *info, int sign);
+int					ft_putcharstr(char c, char **into, t_form *info);
+int					ft_putllu(long long unsigned n, char **str, t_form *info);
 int					ft_putll(long long n, char **str, t_form *info);
 int					ft_putl(long n, char **str);
 int					do_va_crap(va_list *current, t_data *d, t_type *var, t_form *info);
@@ -69,9 +76,9 @@ int					isnum(char c);
 int					check_prec(const char *restrict format);
 int					isvalid(char c);
 void				print_form(t_form *form);
-int					ft_parse_hex(long long n, char caps);
+int					ft_parse_hex(unsigned long long n, char caps, char **str, t_form *info);
 int					ft_print_bin(long long n);
-int					ft_parse_oct(unsigned long long n);
+int					ft_parse_oct(unsigned long long n, char **str, t_form *info);
 int					ft_atoi(const char *str);
 char				*ft_strcpy(char *src, const char *dst);
 char				*ft_strncpy(char *src, const char *dst, size_t n);
@@ -80,6 +87,7 @@ void				ft_putnbr(int n);
 void				ft_putchar(char c);
 size_t				ft_strlen(const char *str);
 int					print_int(t_form *info, t_data *d, int ret);
+int					print_str(t_form *info, t_data *d, int ret);
 int					print_long(t_form *info, t_data *d, int ret);
 int					print_char(t_form *info, t_data *d, int ret);
 int					print_short(t_form *info, t_data *d, int ret);

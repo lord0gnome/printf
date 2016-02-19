@@ -40,10 +40,8 @@ int	get_width_nd_prec(t_form *c, const char *restrict f, int i)
 int	modify_form(t_form *c, const char *restrict f, t_data *d)
 {
 	int		i;
-	int		j;
 
 	i = 0;
-	j = 0;
 	if (f[i] == '%' && f[i + 1])
 		i++;
 	else

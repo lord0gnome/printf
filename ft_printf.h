@@ -14,6 +14,7 @@
 # define FT_PRINTF_H
 
 #include <wchar.h>
+#include <stdarg.h>
 
 typedef struct		s_form
 {

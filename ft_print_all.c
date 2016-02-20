@@ -6,7 +6,7 @@
 /*   By: guiricha <guiricha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/15 12:36:15 by guiricha          #+#    #+#             */
-/*   Updated: 2016/02/19 14:20:02 by guiricha         ###   ########.fr       */
+/*   Updated: 2016/02/20 17:15:59 by guiricha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,13 +74,15 @@ int	print_str(t_form *info, t_data *d, int ret)
 		info->prec = ret;
 	count = info->prec;
 	if (count == -1)
-		count = 0;
-
+		count = ret;
 	if (info->left == 0)
 	{
-		while (info->width > 0 && info->width - count > 0)
+		while (info->width - count > 0)
 		{
-			ft_putchar(' ');
+			if (info->zero)
+				ft_putchar('0');
+			else
+				ft_putchar(' ');
 			newret++;
 			info->width--;
 		}
@@ -90,15 +92,13 @@ int	print_str(t_form *info, t_data *d, int ret)
 			while (count--)
 			{
 				ft_putchar(d->string[index++]);
+				ret++;
 			}
 		}
 		else
 			ft_putstr(d->string);
 
 	}
-
-
-
 	else if (info->left == 1)
 	{
 		if (info->prec != -1)
@@ -219,52 +219,67 @@ int	print_long(t_form *info, t_data *d, int ret)
 	}
 	return (ret + newret);
 }
+
 int	print_char(t_form *info, t_data *d, int ret)
 {
 	int newret;
 
 	newret = 0;
-	if (info->prec == -1)
-		info->prec = 0;
-	if (info->width == -1)
-		info->width = 0;
 	if (info->left == 0)
 	{
-		while (info->width - info->prec - ret > 0)
-		{
-			newret++;
-			ft_putchar(' ');
-			if (info->width > 0)
-				info->width--;
-			if (info->prec > 0)
-				info->prec--;
-		}
-		while (info->prec - ret > 0)
-		{
-			newret++;
-			ft_putchar('0');
-			info->prec--;
-		}
-		ft_putstr(d->string);
-	}
-	else if (info->left == 1)
-	{
-		while (info->prec - info->width - ret > 0)
-		{
-			ft_putchar('0');
-			if (info->width > 0)
-				info->width--;
-			if (info->prec > 0)
-				info->prec--;
-			newret++;
-		}
-		ft_putstr(d->string);
-		while (info->width - ret)
+		while (info->width - ret > 0)
 		{
 			ft_putchar(' ');
+			newret++;
 			info->width--;
+		}
+	newret += ret;
+	while (ret--)
+		ft_putchar(*d->string++);
+	}
+	else
+	{
+	newret += ret;
+	while (ret--)
+		ft_putchar(*d->string++);
+	ret = newret;
+		while (info->width - ret > 0)
+		{
+			ft_putchar(' ');
 			newret++;
+			info->width--;
 		}
 	}
-	return (ret + newret);
+
+
+	return (newret);
 }
+/*
+   if (info->left == 0)
+   {
+   while (info->width - ret > 0)
+   {
+   ft_putchar(' ');
+   newret++;
+   info->width--;
+   }
+   while (info->zero == 1 && ret -1)
+   {
+   ft_putchar((*d->string));
+   d->string++;
+   }
+   ft_putchar((*d->string));
+
+   }
+   else if (info->left == 1)
+   {
+   ft_putchar(d->string[0]);
+   while (info->width - ret > 0)
+   {
+   ft_putchar(' ');
+   info->width--;
+   newret++;
+   }
+   }
+   return (ret + newret);
+   }*/

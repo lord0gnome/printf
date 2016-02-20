@@ -6,7 +6,7 @@
 /*   By: guiricha <guiricha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/13 15:33:39 by guiricha          #+#    #+#             */
-/*   Updated: 2016/02/19 16:10:29 by guiricha         ###   ########.fr       */
+/*   Updated: 2016/02/20 17:29:21 by guiricha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,23 +76,13 @@ int	do_va_crap(va_list *current, t_data *d, t_type *var, t_form *info)
 	{
 		var->c = (char)va_arg(*current, int);
 		ret = ft_putcharstr(var->c, &(d->string), info);
-		ret = print_str(info, d, ret);
-		ft_putchar(*(d->string));
+		ret = print_char(info, d, ret);
 	}
 	if (d->type == 's')
 	{
 		var->s = va_arg(*current, char *);
-		if (var->s)
-		{
-			d->string = var->s;
-			ret = ft_strlen(var->s);
-			ret = print_str(info, d, ret);
-		}
-		else
-		{
-			ft_putstr("(null)");
-			ret += 6;
-		}
+		ret = ft_putstrstr(var->s, &(d->string), info);
+		ret = print_str(info, d, ret);
 	}
 	if (d->type == 'S' || (d->type == 's' && (info->type == 3 || info->type == 4)))
 		var->ws = va_arg(*current, wchar_t *);

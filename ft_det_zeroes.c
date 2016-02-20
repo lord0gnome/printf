@@ -6,7 +6,7 @@
 /*   By: guiricha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/19 11:31:31 by guiricha          #+#    #+#             */
-/*   Updated: 2016/02/19 14:55:01 by guiricha         ###   ########.fr       */
+/*   Updated: 2016/02/20 17:20:36 by guiricha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,15 @@ int	ft_det_zeroes(int len, t_form *info, int sign)
 	n = 0;
 	if ((info->zero && info->width > 0) || info->prec > 0)
 	{
-		if (info->prec > 0)
+		if (info->prec > 0 && sign != 2)
 		{
 			n = info->prec - len;
 			info->prec = -1;
 		}
 		else if (info->width > 0 && info->zero)
 		{
+			if (sign == 2)
+				sign = 0;
 			n = info->width - len - sign;
 			info->width = -1;
 		}

@@ -6,7 +6,7 @@
 /*   By: guiricha <guiricha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/09 14:46:03 by guiricha          #+#    #+#             */
-/*   Updated: 2016/02/19 15:36:41 by guiricha         ###   ########.fr       */
+/*   Updated: 2016/02/20 17:35:33 by guiricha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define FT_PRINTF_H
 
 #include <wchar.h>
+#include <stdarg.h>
 
 typedef struct		s_form
 {
@@ -63,6 +64,7 @@ typedef union		u_type
 
 int					ft_det_zeroes(int len, t_form *info, int sign);
 int					ft_putcharstr(char c, char **into, t_form *info);
+int					ft_putstrstr(char *input, char **into, t_form *info);
 int					ft_putllu(long long unsigned n, char **str, t_form *info);
 int					ft_putll(long long n, char **str, t_form *info);
 int					ft_putl(long n, char **str);

@@ -6,7 +6,7 @@
 /*   By: guiricha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/23 13:41:18 by guiricha          #+#    #+#             */
-/*   Updated: 2016/02/19 15:58:11 by guiricha         ###   ########.fr       */
+/*   Updated: 2016/02/20 17:34:39 by guiricha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,20 +21,44 @@ void	ft_putchar(char c)
 
 int		ft_putcharstr(char c, char **into, t_form *info)
 {
-	int	t;
 	int len;
 	int ret;
+	int zeroes;
 	char *str;
 
 	len = 1;
-	t = ft_det_zeroes(len, info, 0);
-	str = (char *)malloc(sizeof(char) * (t + len + 1));
-	str[t + len] = '\0';
-	ret = t + len;
-	len = t;
-	str[ret - 1] = c;
-	while (len--)
-		str[len] = '0';
+	zeroes = ft_det_zeroes(len, info, 2);
+	str = (char *)malloc(sizeof(char) * (len + zeroes + 1));
+	str[len + zeroes] = '\0';
+	ret = zeroes;
+	while (zeroes--)
+		str[zeroes] = '0';
+	str[ret] = c;
 	*into = str;
-	return (ret);
+	return (ret + len);
+}
+
+
+int		ft_putstrstr(char *input, char **into, t_form *info)
+{
+	int len;
+	int ret;
+	int zeroes;
+	int n;
+	char *str;
+
+	len = 0;
+	len += ft_strlen(input);
+	zeroes = ft_det_zeroes(len, info, 2);
+	str = (char *)malloc(sizeof(char) * (len + zeroes + 1));
+	str[len + zeroes] = '\0';
+	ret = zeroes;
+	while (zeroes--)
+		str[zeroes] = '0';
+	zeroes = len;
+	n = ret;
+	while(n < len)
+	str[n++] = *input++;
+	*into = str;
+	return (ret + len);
 }

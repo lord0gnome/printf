@@ -6,7 +6,7 @@
 /*   By: guiricha <guiricha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/09 14:46:03 by guiricha          #+#    #+#             */
-/*   Updated: 2016/02/20 17:35:33 by guiricha         ###   ########.fr       */
+/*   Updated: 2016/02/22 15:47:28 by guiricha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,8 @@ typedef union		u_type
 	unsigned int	o;
 	long unsigned int O;
 	long long unsigned llu;
-	size_t			z;
 	void			*p;
+	size_t			z;
 }					t_type;
 
 int					ft_det_zeroes(int len, t_form *info, int sign);
@@ -79,6 +79,7 @@ int					check_prec(const char *restrict format);
 int					isvalid(char c);
 void				print_form(t_form *form);
 int					ft_parse_hex(unsigned long long n, char caps, char **str, t_form *info);
+int					ft_parse_ptr(unsigned long long n, char caps, char **str, t_form *info);
 int					ft_print_bin(long long n);
 int					ft_parse_oct(unsigned long long n, char **str, t_form *info);
 int					ft_atoi(const char *str);

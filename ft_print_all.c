@@ -6,7 +6,7 @@
 /*   By: guiricha <guiricha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/15 12:36:15 by guiricha          #+#    #+#             */
-/*   Updated: 2016/02/20 17:15:59 by guiricha         ###   ########.fr       */
+/*   Updated: 2016/02/22 14:29:00 by guiricha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,29 +86,12 @@ int	print_str(t_form *info, t_data *d, int ret)
 			newret++;
 			info->width--;
 		}
-		if (info->prec != -1)
-		{
-			ret = 0;
-			while (count--)
-			{
-				ft_putchar(d->string[index++]);
-				ret++;
-			}
-		}
-		else
-			ft_putstr(d->string);
+		ft_putstr(d->string);
 
 	}
 	else if (info->left == 1)
 	{
-		if (info->prec != -1)
-		{
-			while (info->prec-- > 0 && d->string[index])
-				ft_putchar(d->string[index++]);
-			ret -= ft_strlen(d->string);
-		}
-		else
-			ft_putstr(d->string);
+		ft_putstr(d->string);
 		while (info->width - ret > 0)
 		{
 			ft_putchar(' ');

@@ -6,7 +6,7 @@
 /*   By: guiricha <guiricha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/13 15:33:39 by guiricha          #+#    #+#             */
-/*   Updated: 2016/02/20 17:29:21 by guiricha         ###   ########.fr       */
+/*   Updated: 2016/02/22 16:14:36 by guiricha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,8 @@ int	do_va_crap(va_list *current, t_data *d, t_type *var, t_form *info)
 		}
 		else if (info->type == 6)
 		{
-			var->lld = va_arg(*current,long long);
-			ret = ft_putll(var->lld, &(d->string), info);
+			var->llu = (unsigned long long)va_arg(*current, size_t);
+			ret = ft_putll(var->llu, &(d->string), info);
 			ret = print_int(info, d, ret);
 		}
 	}
@@ -135,9 +135,11 @@ int	do_va_crap(va_list *current, t_data *d, t_type *var, t_form *info)
 	if (d->type == 'p')
 	{
 		var->p = va_arg(*current, void *);
-		ft_putstr("0x");
-		ret += 2;
-		ret += ft_parse_hex((long long unsigned)var->p, 0, &(d->string), info);
+		info->force = 1;
+		info->bigsmall = 'x';
+		if (info->prec != -1)
+			info->prec += 2;
+		ret = ft_parse_ptr((long long unsigned)var->p, 0, &(d->string), info);
 		ret = print_int(info, d, ret);
 	}
 	if (d->type == 'u')
@@ -146,5 +148,13 @@ int	do_va_crap(va_list *current, t_data *d, t_type *var, t_form *info)
 		ret = ft_putllu(var->x, &(d->string), info);
 		ret = print_int(info, d, ret);
 	}
+
+	if (d->type == 'U')
+	{
+		var->O = (long unsigned int)va_arg(*current, long unsigned int);
+		ret = ft_putllu(var->O, &(d->string), info);
+		ret = print_int(info, d, ret);
+	}
+
 	return (ret);
 }

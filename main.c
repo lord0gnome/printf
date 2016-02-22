@@ -6,7 +6,7 @@
 /*   By: guiricha <guiricha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/09 14:33:57 by guiricha          #+#    #+#             */
-/*   Updated: 2016/02/20 17:21:07 by guiricha         ###   ########.fr       */
+/*   Updated: 2016/02/22 16:14:38 by guiricha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ int	main(int argc, char **argv)
 	ft_putchar(' ');
 	ft_putnbr(test2);
 	ft_putchar('\n');
-	test = printf("'%05s'\n", "abc");
-	test2 = ft_printf("'%05s'\n", "abc");
+	test = printf("'%08.5s'\n", 0);
+	test2 = ft_printf("'%08.5s'\n", 0);
 	ft_putnbr(test);
 	ft_putchar(' ');
 	ft_putnbr(test2);
@@ -36,12 +36,22 @@ int	main(int argc, char **argv)
 	test2 = ft_printf("mlongd:'%#5.4x'\n", 1);
 	test = printf("hex  :'%#08X'\n", 4);
 	test2 = ft_printf("hex  :'%#08X'\n", 4);
-	test = printf("hexcp:'%X'\n", 4294967296);
-	test2 = ft_printf("hexcp:'%X'\n", 4294967296);
+	test = printf("hexcp:'%D'\n", 0);
+	test2 = ft_printf("hexcp:'%D'\n", 0);
 	test = printf("nsngd:'% u'\n", 9999);
 	test2 = ft_printf("nsngd:'% u'\n", 9999);
-	test = printf("strng:'%05.s'\n", 0);
-	test2 = ft_printf("strng:'%05.s'\n", 0);
+	test = printf("strng:'%.0p'\n", 0);
+	test2 = ft_printf("strng:'%.0p'\n", 0);
+	ft_putnbr(test);
+	ft_putchar(' ');
+	ft_putnbr(test2);
+	ft_putchar('\n');
+	test = printf("strng:'%.5p'\n", 0);
+	test2 = ft_printf("strng:'%.5p'\n", 0);
+	ft_putnbr(test);
+	ft_putchar(' ');
+	ft_putnbr(test2);
+	ft_putchar('\n');
 	test = printf("tcchar :'{%3c}'\n", 0);
 	test2 = ft_printf("mcchar :'{%3c}'\n", 0);
 	ft_putnbr(test);

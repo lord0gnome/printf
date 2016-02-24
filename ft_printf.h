@@ -6,7 +6,7 @@
 /*   By: guiricha <guiricha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/09 14:46:03 by guiricha          #+#    #+#             */
-/*   Updated: 2016/02/22 15:47:28 by guiricha         ###   ########.fr       */
+/*   Updated: 2016/02/24 14:36:21 by guiricha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,9 @@ typedef union		u_type
 	size_t			z;
 }					t_type;
 
+char				*ft_itoabase(long long n, int base, char caps);
 int					ft_det_zeroes(int len, t_form *info, int sign);
+int					ft_det_zeroes_ptr(int len, t_form *info, int sign);
 int					ft_putcharstr(char c, char **into, t_form *info);
 int					ft_putstrstr(char *input, char **into, t_form *info);
 int					ft_putllu(long long unsigned n, char **str, t_form *info);
@@ -88,6 +90,7 @@ char				*ft_strncpy(char *src, const char *dst, size_t n);
 void				ft_putstr(char const *s);
 void				ft_putnbr(int n);
 void				ft_putchar(char c);
+void				*ft_memset(void *b, int c, size_t n);
 size_t				ft_strlen(const char *str);
 int					print_int(t_form *info, t_data *d, int ret);
 int					print_str(t_form *info, t_data *d, int ret);

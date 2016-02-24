@@ -6,7 +6,7 @@
 /*   By: guiricha <guiricha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/13 15:33:39 by guiricha          #+#    #+#             */
-/*   Updated: 2016/02/22 16:14:36 by guiricha         ###   ########.fr       */
+/*   Updated: 2016/02/24 16:01:05 by guiricha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,32 +38,32 @@ int	do_va_crap(va_list *current, t_data *d, t_type *var, t_form *info)
 		if (info->type == 2)
 		{
 			var->c = (char)va_arg(*current, int);
-			ret = ft_putll((var->c), &(d->string), info);
+			ret = ft_strlen(d->string = ft_itoabase((var->d), 10, 0));
 			ret = print_char(info, d, ret);
 		}
 		else if (info->type == 1)
 		{
 			var->h = (short)va_arg(*current, int);
-			ret = ft_putll(var->h, &(d->string), info);
+			ret = ft_strlen(d->string = ft_itoabase((var->h), 10, 0));
 			ret = print_long(info, d, ret);
 		}
 		else if (info->type == 3)
 		{
 			var->ld = va_arg(*current,long);
-			ret = ft_putll(var->ld, &(d->string), info);
+			ret = ft_strlen(d->string = ft_itoabase((var->ld), 10, 0));
 			ret = print_int(info, d, ret);
 		}
 		else if (info->type == 4)
 		{
 			var->lld = va_arg(*current,long long);
-			ret = ft_putll(var->lld, &(d->string), info);
-			ret = print_int(info, d, ret);
+			ret = ft_strlen(d->string = ft_itoabase((var->lld), 10, 0));
+			ret = print_long(info, d, ret);
 		}
 		else if (info->type == 0)
 		{
-			var->d = va_arg(*current,int);
-			ret = ft_putll(var->d, &(d->string), info);
-			ret = print_int(info, d, ret);
+			var->d = (int)va_arg(*current, int);
+			ret = ft_strlen(d->string = ft_itoabase((var->d), 10, 0));
+			ret = print_long(info, d, ret);
 		}
 		else if (info->type == 6)
 		{
@@ -88,6 +88,8 @@ int	do_va_crap(va_list *current, t_data *d, t_type *var, t_form *info)
 		var->ws = va_arg(*current, wchar_t *);
 	if (d->type == 'x' || d->type == 'X')
 	{
+		if (info->prec != -1 && info->force == 1 && info->prec != 0)
+			info->prec += 2;
 		if (info->type == 3)
 		{
 			var->O = va_arg(*current, long unsigned);

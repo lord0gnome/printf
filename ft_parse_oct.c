@@ -6,7 +6,7 @@
 /*   By: guiricha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/18 13:10:41 by guiricha          #+#    #+#             */
-/*   Updated: 2016/02/19 15:27:45 by guiricha         ###   ########.fr       */
+/*   Updated: 2016/02/24 13:53:59 by guiricha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,11 @@ int	ft_parse_oct(unsigned long long n, char **str, t_form *info)
 
 	bck = n;
 	len = 1;
-	if (n == 0)
+	if (n == 0 && info->prec == 0)
+	{
+		len = 0;
 		info->force = 0;
+	}
 	while (bck /= 8)
 		len++;
 	ret = ft_det_zeroes(len + info->force, info, 0);

@@ -6,7 +6,7 @@
 /*   By: guiricha <guiricha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/15 12:36:15 by guiricha          #+#    #+#             */
-/*   Updated: 2016/02/22 14:29:00 by guiricha         ###   ########.fr       */
+/*   Updated: 2016/02/24 16:37:43 by guiricha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,34 +156,54 @@ int	ft_print_nocon(t_form *info, int ret)
 int	print_long(t_form *info, t_data *d, int ret)
 {
 	int newret;
+	char ospace;
+	char neg;
+	int bck;
 
+	bck = info->prec;
+	neg = d->string[0] == '-' && (info->zero == 1 || info->prec > 0) ? 1 : 0;
+	ospace = info->zero == 1 ? '0' : ' ';
 	newret = 0;
-	if (info->prec == -1)
-		info->prec = 0;
+	if (info->prec == -1 || info->prec < ret - neg)
+		info->prec = ret - neg;
 	if (info->width == -1)
 		info->width = 0;
 	if (info->left == 0)
 	{
-		while (info->width - info->prec - ret > 0)
+		while (info->width - (info->prec - (ret - neg)) - ret > 0)
 		{
 			newret++;
-			ft_putchar(' ');
-			if (info->width > 0)
-				info->width--;
-			if (info->prec > 0)
-				info->prec--;
+			ft_putchar(ospace);
+			info->width--;
 		}
-		while (info->prec - ret > 0)
+		if (d->string[0] != '-' && (info->plus || info->space))
+		{
+			ft_putchar(info->plus ? '+' : ' ');
+			ret++;
+		}
+		if (neg)
+			ft_putchar(*d->string++);
+		while (info->prec - (ret - neg) > 0)
 		{
 			newret++;
 			ft_putchar('0');
 			info->prec--;
 		}
-		ft_putstr(d->string);
+		if (*d->string == '0' && bck == 0)
+			newret--;
+		else
+			ft_putstr(d->string);
 	}
 	else if (info->left == 1)
 	{
-		while (info->prec - info->width - ret > 0)
+		if (d->string[0] == '-' && info->zero == 1)
+			ft_putchar(*d->string++);
+		else if (d->string[0] != '-' && (info->plus || info->space))
+		{
+			ft_putchar(info->plus ? '+' : ' ');
+			ret++;
+		}
+		while (info->prec - ret >= 0)
 		{
 			ft_putchar('0');
 			if (info->width > 0)
@@ -192,8 +212,11 @@ int	print_long(t_form *info, t_data *d, int ret)
 				info->prec--;
 			newret++;
 		}
-		ft_putstr(d->string);
-		while (info->width - ret)
+		if (*d->string == '0' && bck == 0)
+			newret--;
+		else
+			ft_putstr(d->string);
+		while (info->width - ret > 0)
 		{
 			ft_putchar(' ');
 			info->width--;
@@ -216,16 +239,16 @@ int	print_char(t_form *info, t_data *d, int ret)
 			newret++;
 			info->width--;
 		}
-	newret += ret;
-	while (ret--)
-		ft_putchar(*d->string++);
+		newret += ret;
+		while (ret--)
+			ft_putchar(*d->string++);
 	}
 	else
 	{
-	newret += ret;
-	while (ret--)
-		ft_putchar(*d->string++);
-	ret = newret;
+		newret += ret;
+		while (ret--)
+			ft_putchar(*d->string++);
+		ret = newret;
 		while (info->width - ret > 0)
 		{
 			ft_putchar(' ');

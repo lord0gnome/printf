@@ -6,7 +6,7 @@
 /*   By: guiricha <guiricha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/13 15:33:39 by guiricha          #+#    #+#             */
-/*   Updated: 2016/02/25 14:19:56 by guiricha         ###   ########.fr       */
+/*   Updated: 2016/02/25 14:27:41 by guiricha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,7 @@ int	do_va_crap(va_list *current, t_data *d, t_type *var, t_form *info)
 	if (d->type == 'O' || (d->type == 'o' && info->type == 3))
 	{
 		var->O = va_arg(*current, unsigned long int);
-		ret = ft_strlen(d->string = ft_itoabaseo((var->O), 8, 0));
+		ret = ft_strlen(d->string = ft_itoabaseu((var->O), 8, 0));
 		ret = print_longu(info, d, ret);
 	}
 

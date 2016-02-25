@@ -6,7 +6,7 @@
 /*   By: guiricha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/24 14:06:07 by guiricha          #+#    #+#             */
-/*   Updated: 2016/02/25 14:15:17 by guiricha         ###   ########.fr       */
+/*   Updated: 2016/02/25 14:31:48 by guiricha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ char	*ft_itoabaseu(size_t n, int base, char caps)
 		len++;
 	ret = (char *)malloc(sizeof(char) * len + 1);
 	ret[len] = '\0';
-	ret[0] = '-';
 	while (len--)
 	{
 		ret[len] = (n % base) + 48;
@@ -77,7 +76,6 @@ char	*ft_itoabasex(t_form *info, size_t n, int base, char caps)
 		return (NULL);
 	len = 1;
 	bck = n;
-	info->force = (!n ? 0 : info->force);
 	while (bck /= base)
 		len++;
 	ret = (char *)malloc(sizeof(char) * len + (info->force * 2) + 1);
@@ -107,15 +105,12 @@ char	*ft_itoabaseo(t_form *info, size_t n, int base)
 		return (NULL);
 	len = 1;
 	bck = n;
-	info->force = (!n && !info->prec ? 0 : info->force);
 	while (bck /= base)
 		len++;
 	ret = (char *)malloc(sizeof(char) * len + (info->force) + 1);
 	ret[(info->force) + len] = '\0';
 	if (info->force == 1)
-	{
 		ret[0] = '0';
-	}
 	while (len--)
 	{
 		ret[len + (info->force)] = (n % base) + 48;

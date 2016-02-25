@@ -6,7 +6,7 @@
 /*   By: guiricha <guiricha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/15 12:36:15 by guiricha          #+#    #+#             */
-/*   Updated: 2016/02/25 14:19:17 by guiricha         ###   ########.fr       */
+/*   Updated: 2016/02/25 14:33:41 by guiricha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,11 +185,8 @@ int	do_info_norm(t_form *info, t_data *d, int newret, int ret)
 			ft_putchar('0');
 			info->prec--;
 		}
-		if (*d->string == '0' && d->bck == 0 && info->force == 0)
-			{
-				ft_putchar('0');
-				newret++;
-			}
+		if (*d->string == '0' && d->bck == 0)
+			newret--;
 		else
 			ft_putstr(d->string);
 	}

@@ -6,62 +6,12 @@
 /*   By: guiricha <guiricha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/15 12:36:15 by guiricha          #+#    #+#             */
-/*   Updated: 2016/02/24 16:37:43 by guiricha         ###   ########.fr       */
+/*   Updated: 2016/02/25 14:19:17 by guiricha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	print_int(t_form *info, t_data *d, int ret)
-{
-	int newret;
-
-	newret = 0;
-	if (info->prec < 0)
-		info->prec = 0;
-	if (info->width < 0)
-		info->width = 0;
-	if (info->left == 0)
-	{
-		while (info->width - info->prec - ret > 0)
-		{
-			newret++;
-			ft_putchar(' ');
-			if (info->width > 0)
-				info->width--;
-			if (info->prec > 0)
-				info->prec--;
-		}
-		while (info->prec - ret > 0)
-		{
-			newret++;
-			ft_putchar('0');
-			info->prec--;
-		}
-		if (d->string)
-			ft_putstr(d->string);
-	}
-	else if (info->left == 1)
-	{
-		while (info->prec - info->width - ret > 0)
-		{
-			ft_putchar('0');
-			if (info->width > 0)
-				info->width--;
-			if (info->prec > 0)
-				info->prec--;
-			newret++;
-		}
-		ft_putstr(d->string);
-		while (info->width - ret > 0)
-		{
-			ft_putchar(' ');
-			info->width--;
-			newret++;
-		}
-	}
-	return (ret + newret);
-}
 int	print_str(t_form *info, t_data *d, int ret)
 {
 	int newret;
@@ -101,13 +51,6 @@ int	print_str(t_form *info, t_data *d, int ret)
 	}
 	return (ret + newret + index);
 }
-/*int	print_long(long d, t_form *info, t_data *d)
-  int	print_long_long(long long d, t_form *info, t_data *d)
-  int	print_hex(unsigned int d, t_form *info, t_data *d)
-  int	print_long_hex(long unsigned int d, t_form *info, t_data *d)
-  int	print_long_long_hex(long long unsigned int d, t_form *info, t_data *d)
-  int	print_octal(unsigned int d, t_form *info, t_data *d)
-  int	print_int(int d, t_form *info, t_data *d)*/
 int	ft_print_nocon(t_form *info, int ret)
 {
 	int newret;
@@ -162,7 +105,7 @@ int	print_long(t_form *info, t_data *d, int ret)
 
 	bck = info->prec;
 	neg = d->string[0] == '-' && (info->zero == 1 || info->prec > 0) ? 1 : 0;
-	ospace = info->zero == 1 ? '0' : ' ';
+	ospace = info->zero == 1  && info->prec < 0 ? '0' : ' ';
 	newret = 0;
 	if (info->prec == -1 || info->prec < ret - neg)
 		info->prec = ret - neg;
@@ -203,7 +146,7 @@ int	print_long(t_form *info, t_data *d, int ret)
 			ft_putchar(info->plus ? '+' : ' ');
 			ret++;
 		}
-		while (info->prec - ret >= 0)
+		while (info->prec - (ret) > 0)
 		{
 			ft_putchar('0');
 			if (info->width > 0)
@@ -223,6 +166,76 @@ int	print_long(t_form *info, t_data *d, int ret)
 			newret++;
 		}
 	}
+	return (ret + newret);
+}
+
+int	do_info_norm(t_form *info, t_data *d, int newret, int ret)
+{
+	if (info->left == 0)
+	{
+		while (info->width - (info->prec - ret) - ret > 0)
+		{
+			newret++;
+			ft_putchar(d->ospace);
+			info->width--;
+		}
+		while (info->prec - (ret) > 0)
+		{
+			newret++;
+			ft_putchar('0');
+			info->prec--;
+		}
+		if (*d->string == '0' && d->bck == 0 && info->force == 0)
+			{
+				ft_putchar('0');
+				newret++;
+			}
+		else
+			ft_putstr(d->string);
+	}
+	return (newret);
+}
+
+int	do_info_left(t_form *info, t_data *d, int newret, int ret)
+{
+	if (info->left == 1)
+	{
+		while (info->prec - ret >= 0)
+		{
+			ft_putchar('0');
+			if (info->width > 0)
+				info->width--;
+			if (info->prec > 0)
+				info->prec--;
+			newret++;
+		}
+		if (*d->string == '0' && d->bck == 0)
+			newret--;
+		else
+			ft_putstr(d->string);
+		while (info->width - ret > 0)
+		{
+			ft_putchar(' ');
+			info->width--;
+			newret++;
+		}
+	}
+	return (newret);
+}
+
+int	print_longu(t_form *info, t_data *d, int ret)
+{
+	int newret;
+
+	d->bck = info->prec;
+	d->ospace = info->zero == 1  && info->prec < 0 ? '0' : ' ';
+	newret = 0;
+	if (info->prec == -1 || info->prec < ret)
+		info->prec = ret;
+	if (info->width == -1)
+		info->width = 0;
+	newret = do_info_norm(info, d, newret, ret);
+	newret = do_info_left(info, d, newret, ret);
 	return (ret + newret);
 }
 

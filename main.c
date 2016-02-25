@@ -6,44 +6,34 @@
 /*   By: guiricha <guiricha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/09 14:33:57 by guiricha          #+#    #+#             */
-/*   Updated: 2016/02/24 16:37:18 by guiricha         ###   ########.fr       */
+/*   Updated: 2016/02/25 13:12:58 by guiricha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include <limits.h>
+#include <locale.h>
 #include "ft_printf.h"
 
 int	main(int argc, char **argv)
 {
 	int test2;
 	int test;
-	int	ageofsis;
-	int	nbr;
-	char *str;
 
-	nbr = LONG_MIN;
-	str = ft_itoabase(434535, 15, 1);
-	ft_putchar('\n');
-	ft_putstr(str);
-	ft_putchar('\n');
-
-
-	ageofsis = 21747;
 	test =     printf("%052.32d How aa%.6sbbb%#23.10occcc%24.42mxed ca%on I make this\n", 42, "a longer string than 6", 420, 402);
 	test2 = ft_printf("%052.32d How aa%.6sbbb%#23.10occcc%24.42mxed ca%on I make this\n", 42, "a longer string than 6", 420, 402);
 	ft_putnbr(test);
 	ft_putchar(' ');
 	ft_putnbr(test2);
 	ft_putchar('\n');
-	test = printf("wizards'%0.d'\n", 0);
-	test2 = ft_printf("wizards'%0.d'\n", 0);
+	test = printf("wizards'%lo'\n", ULONG_MAX);
+	test2 = ft_printf("wizards'%lo'\n", ULONG_MAX);
 	ft_putnbr(test);
 	ft_putchar(' ');
 	ft_putnbr(test2);
 	ft_putchar('\n');
-	test = printf("'%D'\n", 50000000000);
-	test2 = ft_printf("'%D'\n", 50000000000);
+	test = printf("'%hhx'\n", UCHAR_MAX);
+	test2 = ft_printf("'%hhx'\n", UCHAR_MAX);
 	ft_putnbr(test);
 	ft_putchar(' ');
 	ft_putnbr(test2);

@@ -6,7 +6,7 @@
 /*   By: guiricha <guiricha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/13 15:33:39 by guiricha          #+#    #+#             */
-/*   Updated: 2016/02/24 16:01:05 by guiricha         ###   ########.fr       */
+/*   Updated: 2016/02/25 14:19:56 by guiricha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,8 @@
 int	do_va_crap(va_list *current, t_data *d, t_type *var, t_form *info)
 {
 	int ret;
-	int x;
+	char xorX;
 
-	x = (d->type == 'x' ? 0 : 1);
 	info->bigsmall = d->type;
 	ret = 0;
 	if (!iscon(d->type))
@@ -38,8 +37,8 @@ int	do_va_crap(va_list *current, t_data *d, t_type *var, t_form *info)
 		if (info->type == 2)
 		{
 			var->c = (char)va_arg(*current, int);
-			ret = ft_strlen(d->string = ft_itoabase((var->d), 10, 0));
-			ret = print_char(info, d, ret);
+			ret = ft_strlen(d->string = ft_itoabase((var->c), 10, 0));
+			ret = print_long(info, d, ret);
 		}
 		else if (info->type == 1)
 		{
@@ -51,7 +50,7 @@ int	do_va_crap(va_list *current, t_data *d, t_type *var, t_form *info)
 		{
 			var->ld = va_arg(*current,long);
 			ret = ft_strlen(d->string = ft_itoabase((var->ld), 10, 0));
-			ret = print_int(info, d, ret);
+			ret = print_long(info, d, ret);
 		}
 		else if (info->type == 4)
 		{
@@ -67,9 +66,9 @@ int	do_va_crap(va_list *current, t_data *d, t_type *var, t_form *info)
 		}
 		else if (info->type == 6)
 		{
-			var->llu = (unsigned long long)va_arg(*current, size_t);
-			ret = ft_putll(var->llu, &(d->string), info);
-			ret = print_int(info, d, ret);
+			var->lld = (long long)va_arg(*current, size_t);
+			ret = ft_strlen(d->string = ft_itoabase((var->lld), 10, 0));
+			ret = print_long(info, d, ret);
 		}
 	}
 	if (d->type == 'c')
@@ -78,84 +77,117 @@ int	do_va_crap(va_list *current, t_data *d, t_type *var, t_form *info)
 		ret = ft_putcharstr(var->c, &(d->string), info);
 		ret = print_char(info, d, ret);
 	}
+	/*	if (d->type == 'C')
+		{
+		var->wc = (wchar_t)va_arg(*current, int)
+		ret = ft_putwidechar(var->wc);
+		}*/
 	if (d->type == 's')
 	{
 		var->s = va_arg(*current, char *);
 		ret = ft_putstrstr(var->s, &(d->string), info);
 		ret = print_str(info, d, ret);
 	}
-	if (d->type == 'S' || (d->type == 's' && (info->type == 3 || info->type == 4)))
-		var->ws = va_arg(*current, wchar_t *);
+	/*if (d->type == 'S' || (d->type == 's' && (info->type == 3 || info->type == 4)))
+	  var->wc = va_arg(*current, wchar_t *);*/
 	if (d->type == 'x' || d->type == 'X')
 	{
+		info->bigsmall = d->type;
+		xorX = d->type == 'x' ? 0 : 1;
 		if (info->prec != -1 && info->force == 1 && info->prec != 0)
 			info->prec += 2;
 		if (info->type == 3)
 		{
 			var->O = va_arg(*current, long unsigned);
-			ret = ft_parse_hex(var->O, x, &(d->string), info);
-			ret = print_int(info, d, ret);
+			ret = ft_strlen(d->string = ft_itoabasex(info ,(var->O), 16, xorX));
+			ret = print_long(info, d, ret);
 		}
 		else if (info->type == 4)
 		{
 			var->llu = va_arg(*current, long long unsigned);
-			ret = ft_parse_hex(var->llu, x, &(d->string), info);
-			ret = print_int(info, d, ret);
+			ret = ft_strlen(d->string = ft_itoabasex(info ,(var->llu), 16, xorX));
+			ret = print_long(info, d, ret);
 		}
 		else if (info->type == 2)
 		{
-			var->hh = (unsigned char)va_arg(*current, int);
-			ret = ft_parse_hex((var->c), x, &(d->string), info);
-			ret = print_int(info, d, ret);
+			var->hh = (unsigned char)va_arg(*current, unsigned int);
+			ret = ft_strlen(d->string = ft_itoabasex(info ,(var->hh), 16, xorX));
+			ret = print_long(info, d, ret);
 		}
 		else if (info->type == 1)
 		{
-			var->uh = (unsigned short)va_arg(*current, int);
-			ret = ft_parse_hex(var->uh, x, &(d->string), info);
-			ret = print_int(info, d, ret);
+			var->uh = (unsigned short)va_arg(*current, unsigned int);
+			ret = ft_strlen(d->string = ft_itoabasex(info ,(var->uh), 16, xorX));
+			ret = print_long(info, d, ret);
 		}
 		else if (info->type == 0)
 		{
 			var->x = va_arg(*current, unsigned int);
-			ret = ft_parse_hex(var->x, x, &(d->string), info);
-			ret = print_int(info, d, ret);
+			ret = ft_strlen(d->string = ft_itoabasex(info ,(var->x), 16, xorX));
+			ret = print_long(info, d, ret);
 		}
 	}
 	if (d->type == 'o')
 	{
 		var->o = va_arg(*current, unsigned int);
-		ret = ft_parse_oct(var->o, &(d->string), info);
-		ret = print_int(info, d, ret);
+		ret = ft_strlen(d->string = ft_itoabaseo(info,(var->o), 8));
+		ret = print_longu(info, d, ret);
 	}
 	if (d->type == 'O' || (d->type == 'o' && info->type == 3))
 	{
 		var->O = va_arg(*current, unsigned long int);
-		ret = ft_parse_oct(var->O, &(d->string), info);
-		ret = print_int(info, d, ret);
+		ret = ft_strlen(d->string = ft_itoabaseo((var->O), 8, 0));
+		ret = print_longu(info, d, ret);
 	}
 
 	if (d->type == 'p')
 	{
-		var->p = va_arg(*current, void *);
+		var->z = (size_t)va_arg(*current, void *);
 		info->force = 1;
-		info->bigsmall = 'x';
+		xorX = 0;
 		if (info->prec != -1)
 			info->prec += 2;
-		ret = ft_parse_ptr((long long unsigned)var->p, 0, &(d->string), info);
-		ret = print_int(info, d, ret);
+		ret = ft_strlen(d->string = ft_itoabasex(info ,(var->z), 16, xorX));
+		ret = print_long(info, d, ret);
 	}
 	if (d->type == 'u')
 	{
-		var->x = (unsigned int)va_arg(*current, unsigned int);
-		ret = ft_putllu(var->x, &(d->string), info);
-		ret = print_int(info, d, ret);
+		if (info->type == 0)
+		{
+			var->x = (unsigned int)va_arg(*current, unsigned int);
+			ret = ft_strlen(d->string = ft_itoabaseu((var->x), 10, 0));
+			ret = print_longu(info, d, ret);
+		}
+		else if (info->type == 2)
+		{
+			var->hh = (unsigned char)va_arg(*current, unsigned int);
+			ret = ft_strlen(d->string = ft_itoabaseu((var->hh), 10, 0));
+			ret = print_longu(info, d, ret);
+		}
+		else if (info->type == 1)
+		{
+			var->uh = (unsigned short)va_arg(*current, unsigned int);
+			ret = ft_strlen(d->string = ft_itoabaseu((var->uh), 10, 0));
+			ret = print_longu(info, d, ret);
+		}
+		else if (info->type == 3)
+		{
+			var->O = (long unsigned int)va_arg(*current, unsigned long int);
+			ret = ft_strlen(d->string = ft_itoabaseu((var->O), 10, 0));
+			ret = print_longu(info, d, ret);
+		}
+		else if (info->type == 4)
+		{
+			var->llu = va_arg(*current, unsigned long long int);
+			ret = ft_strlen(d->string = ft_itoabaseu((var->llu), 10, 0));
+			ret = print_longu(info, d, ret);
+		}
 	}
-
 	if (d->type == 'U')
 	{
 		var->O = (long unsigned int)va_arg(*current, long unsigned int);
-		ret = ft_putllu(var->O, &(d->string), info);
-		ret = print_int(info, d, ret);
+		ret = ft_strlen(d->string = ft_itoabaseu((var->O), 10, 0));
+		ret = print_long(info, d, ret);
 	}
 
 	return (ret);

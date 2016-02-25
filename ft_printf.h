@@ -6,7 +6,7 @@
 /*   By: guiricha <guiricha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/09 14:46:03 by guiricha          #+#    #+#             */
-/*   Updated: 2016/02/24 14:36:21 by guiricha         ###   ########.fr       */
+/*   Updated: 2016/02/25 14:09:14 by guiricha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,29 @@ typedef struct		s_form
 
 typedef struct		s_data
 {
-	int	i;
-	int	ib;
-	int retplusreal;
-	int	nargs;
-	char type;
-	char *string;
+	int		i;
+	int		ib;
+	int		retplusreal;
+	int		nargs;
+	int		bck;
+	char	type;
+	char	*string;
+	char	ospace;
 }					t_data;
+
+typedef struct		s_mask
+{
+	unsigned int	m0;
+	unsigned int	m1;
+	unsigned int	m2;
+	unsigned int	m3;
+	unsigned char	c0;
+	unsigned char	c1;
+	unsigned char	c2;
+	unsigned char	c3;
+	signed int		binlen;
+	int				res;
+}					t_mask;
 
 
 typedef union		u_type
@@ -53,8 +69,7 @@ typedef union		u_type
 	unsigned int	x;
 	char			*s;
 	char			c;
-	wint_t			wc;
-	wchar_t			*ws;
+	wchar_t			wc;
 	unsigned int	o;
 	long unsigned int O;
 	long long unsigned llu;
@@ -63,6 +78,9 @@ typedef union		u_type
 }					t_type;
 
 char				*ft_itoabase(long long n, int base, char caps);
+char				*ft_itoabaseu(size_t n, int base, char caps);
+char				*ft_itoabasex(t_form *info, size_t n, int base, char caps);
+char				*ft_itoabaseo(t_form *info, size_t n, int base);
 int					ft_det_zeroes(int len, t_form *info, int sign);
 int					ft_det_zeroes_ptr(int len, t_form *info, int sign);
 int					ft_putcharstr(char c, char **into, t_form *info);
@@ -95,6 +113,7 @@ size_t				ft_strlen(const char *str);
 int					print_int(t_form *info, t_data *d, int ret);
 int					print_str(t_form *info, t_data *d, int ret);
 int					print_long(t_form *info, t_data *d, int ret);
+int					print_longu(t_form *info, t_data *d, int ret);
 int					print_char(t_form *info, t_data *d, int ret);
 int					print_short(t_form *info, t_data *d, int ret);
 int					ft_putcharspec(char n, char **str);

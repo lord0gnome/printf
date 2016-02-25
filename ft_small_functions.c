@@ -6,7 +6,7 @@
 /*   By: guiricha <guiricha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/09 15:03:28 by guiricha          #+#    #+#             */
-/*   Updated: 2016/02/15 15:51:36 by guiricha         ###   ########.fr       */
+/*   Updated: 2016/02/25 11:57:42 by guiricha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ int	init_data(t_data **d)
 	(*d)->nargs = 0;
 	(*d)->string = NULL;
 	(*d)->type = 0;
+	(*d)->ospace = ' ';
+	(*d)->bck = -1;
 	return (1);
 }
 

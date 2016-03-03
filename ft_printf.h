@@ -6,7 +6,7 @@
 /*   By: guiricha <guiricha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/09 14:46:03 by guiricha          #+#    #+#             */
-/*   Updated: 2016/02/25 14:09:14 by guiricha         ###   ########.fr       */
+/*   Updated: 2016/03/03 14:01:28 by guiricha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ char				*ft_itoabase(long long n, int base, char caps);
 char				*ft_itoabaseu(size_t n, int base, char caps);
 char				*ft_itoabasex(t_form *info, size_t n, int base, char caps);
 char				*ft_itoabaseo(t_form *info, size_t n, int base);
+char				*ft_itoabasep(t_form *info, size_t n, int base, char caps);
 int					ft_det_zeroes(int len, t_form *info, int sign);
 int					ft_det_zeroes_ptr(int len, t_form *info, int sign);
 int					ft_putcharstr(char c, char **into, t_form *info);

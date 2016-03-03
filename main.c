@@ -6,7 +6,7 @@
 /*   By: guiricha <guiricha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/09 14:33:57 by guiricha          #+#    #+#             */
-/*   Updated: 2016/02/25 13:12:58 by guiricha         ###   ########.fr       */
+/*   Updated: 2016/03/03 14:39:36 by guiricha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ int	main(int argc, char **argv)
 	ft_putchar(' ');
 	ft_putnbr(test2);
 	ft_putchar('\n');
-	test = printf("wizards'%lo'\n", ULONG_MAX);
-	test2 = ft_printf("wizards'%lo'\n", ULONG_MAX);
+	test = printf("wizards'%#.3o'\n", 1);
+	test2 = ft_printf("wizards'%#.3o'\n", 1);
 	ft_putnbr(test);
 	ft_putchar(' ');
 	ft_putnbr(test2);
@@ -40,26 +40,26 @@ int	main(int argc, char **argv)
 	ft_putchar('\n');
 	ft_printf("%lu, %lu\n", sizeof(int), sizeof(long));
 	printf("%lu, %lu\n", sizeof(int), sizeof(long));
-	test = printf("tlongd:'%#x'\n", 0);
-	test2 = ft_printf("mlongd:'%#x'\n", 0);
+	test = printf("tlongd:'%10d'\n", -42);
+	test2 = ft_printf("mlongd:'%10d'\n", -42);
 	ft_putnbr(test);
 	ft_putchar(' ');
 	ft_putnbr(test2);
 	ft_putchar('\n');
 	test = printf("hex  :'%#08X'\n", 99999994);
 	test2 = ft_printf("hex  :'%#08X'\n", 99999994);
-	test = printf("hexcp:'%#.0o'\n", 0);
-	test2 = ft_printf("hexcp:'%#.0o'\n", 0);
-	test = printf("nsngd:'% u'\n", 9999);
-	test2 = ft_printf("nsngd:'% u'\n", 9999);
-	test = printf("strng:'%9.2p'\n", 1234);
-	test2 = ft_printf("strng:'%9.2p'\n", 1234);
+	test = printf("hexcp:'%#o'\n", 0);
+	test2 = ft_printf("hexcp:'%#o'\n", 0);
+	test = printf("nsngd:'%p'\n", 0);
+	test2 = ft_printf("nsngd:'%p'\n", 0);
+	test = printf("strngtwo:'%.p'\n", 0);
+	test2 = ft_printf("strngotw:'%.p'\n", 0);
 	ft_putnbr(test);
 	ft_putchar(' ');
 	ft_putnbr(test2);
 	ft_putchar('\n');
-	test = printf("strng:'%.5p'\n", 0);
-	test2 = ft_printf("strng:'%.5p'\n", 0);
+	test = printf("strng:'%#.5x'\n", 1);
+	test2 = ft_printf("strng:'%#.5x'\n", 1);
 	ft_putnbr(test);
 	ft_putchar(' ');
 	ft_putnbr(test2);

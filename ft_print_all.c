@@ -6,7 +6,7 @@
 /*   By: guiricha <guiricha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/15 12:36:15 by guiricha          #+#    #+#             */
-/*   Updated: 2016/02/25 14:33:41 by guiricha         ###   ########.fr       */
+/*   Updated: 2016/03/03 14:41:00 by guiricha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,18 +113,21 @@ int	print_long(t_form *info, t_data *d, int ret)
 		info->width = 0;
 	if (info->left == 0)
 	{
+		if (d->string[0] != '-' && (info->plus || info->space))
+		{
+			ft_putchar(info->plus ? '+' : ' ');
+			ret++;
+			info->width--;
+		}
+		if (neg && info->zero == 1)
+			ft_putchar(*d->string++);
 		while (info->width - (info->prec - (ret - neg)) - ret > 0)
 		{
 			newret++;
 			ft_putchar(ospace);
 			info->width--;
 		}
-		if (d->string[0] != '-' && (info->plus || info->space))
-		{
-			ft_putchar(info->plus ? '+' : ' ');
-			ret++;
-		}
-		if (neg)
+		if (neg && !info->zero)
 			ft_putchar(*d->string++);
 		while (info->prec - (ret - neg) > 0)
 		{
@@ -173,19 +176,39 @@ int	do_info_norm(t_form *info, t_data *d, int newret, int ret)
 {
 	if (info->left == 0)
 	{
+		if (info->force == 1)
+		{
+			if ((d->type == 'o' || d->type == 'O'))
+			{
+				ft_putchar(*d->string++);
+				info->width--;
+			}
+			else if ((d->type == 'x' || d->type == 'X'))
+			{
+				ft_putchar(*d->string++);
+				ft_putchar(*d->string++);
+				info->width -= 2;
+			}
+		}
 		while (info->width - (info->prec - ret) - ret > 0)
 		{
 			newret++;
 			ft_putchar(d->ospace);
 			info->width--;
 		}
+			if (d->type == 'p')
+			{
+				ft_putchar(*d->string++);
+				ft_putchar(*d->string++);
+				info->width -= 2;
+			}
 		while (info->prec - (ret) > 0)
 		{
 			newret++;
 			ft_putchar('0');
 			info->prec--;
 		}
-		if (*d->string == '0' && d->bck == 0)
+		if (*d->string == '0' && d->bck == 0 + (info->force * 2))
 			newret--;
 		else
 			ft_putstr(d->string);
@@ -197,7 +220,7 @@ int	do_info_left(t_form *info, t_data *d, int newret, int ret)
 {
 	if (info->left == 1)
 	{
-		while (info->prec - ret >= 0)
+		while (info->prec - ret > 0)
 		{
 			ft_putchar('0');
 			if (info->width > 0)

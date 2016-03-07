@@ -6,7 +6,7 @@
 /*   By: guiricha <guiricha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/06 10:46:27 by guiricha          #+#    #+#             */
-/*   Updated: 2016/02/19 11:24:57 by guiricha         ###   ########.fr       */
+/*   Updated: 2016/03/07 15:57:59 by guiricha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,14 @@ int	check_prec(const char *restrict format)
 int	isvalid(char c)
 {
 	if (!isnum(c) && c != ' ' && c != '+' && c != '-' && c != '.' && c != '#'
-			&& c != 'l' && c != 'h' && c != 'z' && c != '%')
+			&& c != 'l' && c != 'h' && c != 'z' && c != '%' && c != 'j')
 		return (0);
 	else
 		return (1);
+}
+
+void	forceretcaps(char *ret, int caps)
+{
+	ret[0] = '0';
+	ret[1] = caps ? 'X' : 'x';
 }

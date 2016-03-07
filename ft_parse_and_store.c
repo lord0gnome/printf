@@ -6,7 +6,7 @@
 /*   By: guiricha <guiricha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/09 14:31:19 by guiricha          #+#    #+#             */
-/*   Updated: 2016/03/03 14:26:22 by guiricha         ###   ########.fr       */
+/*   Updated: 2016/03/07 15:24:32 by guiricha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,8 +99,6 @@ int	modify_form(t_form *c, const char *restrict f, t_data *d)
 			c->type = 5;
 		if (f[i] == 'z')
 			c->type = 6;
-		if (f[i] == 'L')
-			c->type = 7;
 		i++;
 	}
 	d->nargs++;

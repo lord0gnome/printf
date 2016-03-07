@@ -6,7 +6,7 @@
 /*   By: guiricha <guiricha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/09 14:46:03 by guiricha          #+#    #+#             */
-/*   Updated: 2016/03/03 14:01:28 by guiricha         ###   ########.fr       */
+/*   Updated: 2016/03/07 15:58:44 by guiricha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 #include <wchar.h>
 #include <stdarg.h>
+#include <stdlib.h>
 
 typedef struct		s_form
 {
@@ -70,21 +71,28 @@ typedef union		u_type
 	char			*s;
 	char			c;
 	wchar_t			wc;
+	wchar_t			*ws;
 	unsigned int	o;
 	long unsigned int O;
 	long long unsigned llu;
 	void			*p;
 	size_t			z;
+	intmax_t		im;
+	uintmax_t		uim;
 }					t_type;
 
+void				forceretcaps(char *str, int caps);
 char				*ft_itoabase(long long n, int base, char caps);
-char				*ft_itoabaseu(size_t n, int base, char caps);
+char				*ft_itoabaseu(uintmax_t n, int base, char caps);
 char				*ft_itoabasex(t_form *info, size_t n, int base, char caps);
 char				*ft_itoabaseo(t_form *info, size_t n, int base);
 char				*ft_itoabasep(t_form *info, size_t n, int base, char caps);
 int					ft_det_zeroes(int len, t_form *info, int sign);
 int					ft_det_zeroes_ptr(int len, t_form *info, int sign);
 int					ft_putcharstr(char c, char **into, t_form *info);
+int					ft_putwidechar(wchar_t *chr);
+int					ft_putwidestr(wchar_t *chr, int prec);
+int					get_wstrlen(wchar_t *chr, int prec);
 int					ft_putstrstr(char *input, char **into, t_form *info);
 int					ft_putllu(long long unsigned n, char **str, t_form *info);
 int					ft_putll(long long n, char **str, t_form *info);
@@ -113,6 +121,7 @@ void				*ft_memset(void *b, int c, size_t n);
 size_t				ft_strlen(const char *str);
 int					print_int(t_form *info, t_data *d, int ret);
 int					print_str(t_form *info, t_data *d, int ret);
+int					print_wstr(t_form *info, int ret, wchar_t *str);
 int					print_long(t_form *info, t_data *d, int ret);
 int					print_longu(t_form *info, t_data *d, int ret);
 int					print_char(t_form *info, t_data *d, int ret);

@@ -6,7 +6,7 @@
 /*   By: guiricha <guiricha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/15 12:36:15 by guiricha          #+#    #+#             */
-/*   Updated: 2016/03/07 15:45:09 by guiricha         ###   ########.fr       */
+/*   Updated: 2016/03/08 15:49:39 by guiricha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,15 +140,14 @@ int	print_long(t_form *info, t_data *d, int ret)
 {
 	int newret;
 	char ospace;
-	char neg;
 	int bck;
 
 	bck = info->prec;
-	neg = d->string[0] == '-' && (info->zero == 1 || info->prec > 0) ? 1 : 0;
+	d->neg = d->string[0] == '-' && (info->zero == 1 || info->prec > 0) ? 1 : 0;
 	ospace = info->zero == 1  && info->prec < 0 ? '0' : ' ';
 	newret = 0;
-	if (info->prec == -1 || info->prec < ret - neg)
-		info->prec = ret - neg;
+	if (info->prec == -1 || info->prec < ret - d->neg)
+		info->prec = ret - d->neg;
 	if (info->width == -1)
 		info->width = 0;
 	if (info->left == 0)
@@ -159,17 +158,17 @@ int	print_long(t_form *info, t_data *d, int ret)
 			ret++;
 			info->width--;
 		}
-		if (neg && info->zero == 1)
+		if (d->neg && info->zero == 1)
 			ft_putchar(*d->string++);
-		while (info->width - (info->prec - (ret - neg)) - ret > 0)
+		while (info->width - (info->prec - (ret - d->neg)) - ret > 0)
 		{
 			newret++;
 			ft_putchar(ospace);
 			info->width--;
 		}
-		if (neg && !info->zero)
+		if (d->neg && !info->zero)
 			ft_putchar(*d->string++);
-		while (info->prec - (ret - neg) > 0)
+		while (info->prec - (ret - d->neg) > 0)
 		{
 			newret++;
 			ft_putchar('0');
@@ -223,17 +222,11 @@ int	do_info_norm(t_form *info, t_data *d, int newret, int ret)
 				ft_putchar(*d->string++);
 				info->width--;
 			}
-			else if ((d->type == 'x' || d->type == 'X'))
+			else if ((d->type == 'x' || d->type == 'X') && info->force)
 			{
 				ft_putchar(*d->string++);
 				ft_putchar(*d->string++);
 				info->width -= 2;
-			}
-			if (d->type == 'p' && info->zero)
-			{
-				ft_putchar(*d->string++);
-				ft_putchar(*d->string++);
-				info->bigsmall = 3;
 			}
 		}
 		while (info->width - (info->prec - ret) - ret > 0)
@@ -242,12 +235,6 @@ int	do_info_norm(t_form *info, t_data *d, int newret, int ret)
 			ft_putchar(d->ospace);
 			info->width--;
 		}
-			if (d->type == 'p' && info->bigsmall != 3)
-			{
-				ft_putchar(*d->string++);
-				ft_putchar(*d->string++);
-				info->width -= 2;
-			}
 		while (info->prec - (ret) > 0)
 		{
 			newret++;
@@ -310,6 +297,7 @@ int	print_char(t_form *info, t_data *d, int ret)
 	int newret;
 
 	newret = 0;
+	d->neg = 0;
 	if (info->left == 0)
 	{
 		while (info->width - ret > 0)
@@ -320,13 +308,13 @@ int	print_char(t_form *info, t_data *d, int ret)
 		}
 		newret += ret;
 		while (ret--)
-			ft_putchar(*d->string++);
+			ft_putchar(d->string[d->neg++]);
 	}
 	else
 	{
 		newret += ret;
 		while (ret--)
-			ft_putchar(*d->string++);
+			ft_putchar(d->string[d->neg++]);
 		ret = newret;
 		while (info->width - ret > 0)
 		{
@@ -368,3 +356,83 @@ int	print_char(t_form *info, t_data *d, int ret)
    }
    return (ret + newret);
    }*/
+int	do_info_normp(t_form *info, t_data *d, int newret, int ret)
+{
+	d->neg = 0;
+	if (info->left == 0)
+	{
+			if (info->zero)
+			{
+				ft_putchar(d->string[d->neg++]);
+				ft_putchar(d->string[d->neg++]);
+				info->bigsmall = 2;
+			}
+		while (info->width - (info->prec - ret) - ret > 0)
+		{
+			newret++;
+			ft_putchar(d->ospace);
+			info->width--;
+		}
+			if (d->type == 'p' && info->bigsmall != 2)
+			{
+				ft_putchar(d->string[d->neg++]);
+				ft_putchar(d->string[d->neg++]);
+				info->width -= 2;
+				info->bigsmall = 2;
+			}
+		while (info->prec - (ret) > 0)
+		{
+			newret++;
+			ft_putchar('0');
+			info->prec--;
+		}
+		if (d->string[d->neg] == '0' && d->bck == 0)
+			newret--;
+		else
+		ft_putstr(d->string + d->neg);
+	}
+	return (newret);
+}
+
+int	do_info_leftp(t_form *info, t_data *d, int newret, int ret)
+{
+	if (info->left == 1)
+	{
+		while (info->prec - ret > 0)
+		{
+			ft_putchar('0');
+			if (info->width > 0)
+				info->width--;
+			if (info->prec > 0)
+				info->prec--;
+			newret++;
+		}
+		if (*d->string == '0' && d->bck == 0)
+			newret--;
+		else
+			ft_putstr(d->string);
+		while (info->width - ret > 0)
+		{
+			ft_putchar(' ');
+			info->width--;
+			newret++;
+		}
+	}
+	return (newret);
+}
+
+int	print_longp(t_form *info, t_data *d, int ret)
+{
+	int newret;
+
+	d->bck = info->prec;
+	d->ospace = info->zero == 1  && info->prec < 0 ? '0' : ' ';
+	newret = 0;
+	if (info->prec == -1 || info->prec < ret)
+		info->prec = ret;
+	if (info->width == -1)
+		info->width = 0;
+	newret = do_info_norm(info, d, newret, ret);
+	newret = do_info_left(info, d, newret, ret);
+	return (ret + newret);
+}

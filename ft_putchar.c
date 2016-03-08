@@ -6,7 +6,7 @@
 /*   By: guiricha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/23 13:41:18 by guiricha          #+#    #+#             */
-/*   Updated: 2016/02/22 15:14:47 by guiricha         ###   ########.fr       */
+/*   Updated: 2016/03/08 15:37:38 by guiricha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,36 +39,33 @@ int		ft_putcharstr(char c, char **into, t_form *info)
 }
 
 
-int		ft_putstrstr(char *input, char **into, t_form *info)
+char	*ft_putstrstr(char *input, t_form *info)
 {
 	int len;
 	int ret;
-	int zeroes;
 	int n;
 	char *str;
+	char *str2;
 
 	n = 0;
+	len = 0;
+	str = NULL;
 	if (input)
 		len = ft_strlen(input);
 	else
 	{
-		input = (char *)malloc(sizeof(char) * (6 + 1));
-		input = "(null)\0";
+		str2 = "(null)\0";
 		len = 6;
 	}
 	if (info->prec != -1)
 		len = (info->prec < len ? info->prec : len);
-	zeroes = ft_det_zeroes(len, info, 2);
-	str = (char *)malloc(sizeof(char) * (len + zeroes + 1));
-	str[len + zeroes] = '\0';
-	ret = zeroes;
-	while (zeroes--)
-		str[zeroes] = '0';
-	zeroes = len;
+	str = (char *)malloc(sizeof(char) * (len + 1));
+	str[len] = '\0';
+	ret = len;
 	while(len--)
 	{
-		str[n++ + ret] = *input++;
+		str[n] = input ? input[n] : str2[n];
+		n++;
 	}
-	*into = str;
-	return (ret + zeroes);
+	return (str);
 }

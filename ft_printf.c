@@ -6,46 +6,54 @@
 /*   By: guiricha <guiricha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/09 14:49:10 by guiricha          #+#    #+#             */
-/*   Updated: 2016/02/18 16:17:31 by guiricha         ###   ########.fr       */
+/*   Updated: 2016/03/08 15:12:33 by guiricha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include <stdarg.h>
+#include <stdio.h>
 
-int	ft_printf(const char *restrict format, ...)
+static int	do_d_stuff(t_data *d, t_form **c, const char *restrict f, char *r)
+{
+	free(*c);
+	if (!(reinit_form(c)))
+		return (-1);
+	d->i += read_until(f + d->i, r, d);
+	d->ib = d->i;
+	d->i += modify_form(*c, f + d->i, d);
+	d->type = f[d->i];
+	d->string = NULL;
+	return (1);
+}
+
+int			ft_printf(const char *restrict format, ...)
 {
 	char	*result;
-	t_form *current;
-	t_data *d;
-	va_list ap;
+	t_form	*c;
+	t_data	*d;
+	va_list	ap;
 	t_type	var;
 
-	if (!(reinit_form(&current)))
+	if (!(reinit_form(&c)))
 		return (-1);
 	if (!(init_data(&d)))
 		return (-1);
 	va_start(ap, format);
 	result = NULL;
-	while ((d->ib != d->i || current->percent != -1) && format[d->i] && d->i < (int)ft_strlen(format))
+	while ((d->ib != d->i || c->percent != -1) && format[d->i])
 	{
-		if (!(reinit_form(&current)))
+		if ((do_d_stuff(d, &c, format, result)) == -1)
 			return (-1);
-		d->i += read_until(format + d->i, result, d);
-		d->ib = d->i;
-		d->i += modify_form(current, format + d->i, d);
-		d->type = format[d->i];
-		d->string = NULL;
 		if (d->nargs > 0)
 		{
-			d->retplusreal += do_va_crap(&ap, d, &var, current);
+			d->retplusreal += do_va_crap(&ap, d, &var, c);
 			d->nargs--;
 			d->i++;
 		}
-		//todo
-		//ft_putstr("\n\n");
-//		print_form(current);
-		//ft_putstr("\n\n");
 	}
-	return (d->retplusreal);
+	free(c);
+	var.d = d->retplusreal;
+	free(d);
+	return (var.d);
 }

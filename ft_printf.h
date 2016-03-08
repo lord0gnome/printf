@@ -6,7 +6,7 @@
 /*   By: guiricha <guiricha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/09 14:46:03 by guiricha          #+#    #+#             */
-/*   Updated: 2016/03/07 15:58:44 by guiricha         ###   ########.fr       */
+/*   Updated: 2016/03/08 15:36:00 by guiricha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ typedef struct		s_data
 	char	type;
 	char	*string;
 	char	ospace;
+	int		neg;
 }					t_data;
 
 typedef struct		s_mask
@@ -93,7 +94,7 @@ int					ft_putcharstr(char c, char **into, t_form *info);
 int					ft_putwidechar(wchar_t *chr);
 int					ft_putwidestr(wchar_t *chr, int prec);
 int					get_wstrlen(wchar_t *chr, int prec);
-int					ft_putstrstr(char *input, char **into, t_form *info);
+char				*ft_putstrstr(char *input, t_form *info);
 int					ft_putllu(long long unsigned n, char **str, t_form *info);
 int					ft_putll(long long n, char **str, t_form *info);
 int					ft_putl(long n, char **str);
@@ -124,6 +125,7 @@ int					print_str(t_form *info, t_data *d, int ret);
 int					print_wstr(t_form *info, int ret, wchar_t *str);
 int					print_long(t_form *info, t_data *d, int ret);
 int					print_longu(t_form *info, t_data *d, int ret);
+int					print_longp(t_form *info, t_data *d, int ret);
 int					print_char(t_form *info, t_data *d, int ret);
 int					print_short(t_form *info, t_data *d, int ret);
 int					ft_putcharspec(char n, char **str);

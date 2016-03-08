@@ -6,7 +6,7 @@
 /*   By: guiricha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/24 14:06:07 by guiricha          #+#    #+#             */
-/*   Updated: 2016/03/07 15:58:28 by guiricha         ###   ########.fr       */
+/*   Updated: 2016/03/08 15:43:09 by guiricha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@ char	*ft_itoabase(long long n, int base, char caps)
 	char		sign;
 	char		*ret;
 
-	if (base > 16 || base < 2)
-		return (NULL);
 	sign = 0;
 	len = 1;
 	if (n < 0)
@@ -48,8 +46,6 @@ char	*ft_itoabaseu(uintmax_t n, int base, char caps)
 	size_t		bck;
 	char		*ret;
 
-	if (base > 16 || base < 2)
-		return (NULL);
 	len = 1;
 	bck = n;
 	while (bck /= base)
@@ -72,8 +68,6 @@ char	*ft_itoabaseo(t_form *info, size_t n, int base)
 	size_t		bck;
 	char		*ret;
 
-	if (base > 16 || base < 2)
-		return (NULL);
 	len = 1;
 	bck = n;
 	while (bck /= base)
@@ -117,7 +111,9 @@ char	*ft_itoabasex(t_form *i, size_t n, int base, char caps)
 			ret[len + (i->force * 2)] += (caps ? 7 : 39);
 	}
 	if (bck == 0 && i->force == 1)
+	{
 		ret[0 + (i->force * 2)] = '\0';
+	}
 	return (ret);
 }
 
@@ -127,8 +123,6 @@ char	*ft_itoabasep(t_form *i, size_t n, int base, char caps)
 	size_t		bck;
 	char		*ret;
 
-	if (base > 16 || base < 2)
-		return (NULL);
 	len = 1;
 	bck = n;
 	while (bck /= base)
@@ -140,6 +134,7 @@ char	*ft_itoabasep(t_form *i, size_t n, int base, char caps)
 		ret[0] = '0';
 		ret[1] = caps ? 'X' : 'x';
 	}
+	bck = n;
 	while (len--)
 	{
 		ret[len + (i->force * 2)] = (n % base) + 48;

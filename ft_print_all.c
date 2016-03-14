@@ -6,7 +6,7 @@
 /*   By: guiricha <guiricha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/15 12:36:15 by guiricha          #+#    #+#             */
-/*   Updated: 2016/03/08 15:49:39 by guiricha         ###   ########.fr       */
+/*   Updated: 2016/03/14 12:47:59 by guiricha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,14 +152,18 @@ int	print_long(t_form *info, t_data *d, int ret)
 		info->width = 0;
 	if (info->left == 0)
 	{
-		if (d->string[0] != '-' && (info->plus || info->space))
+		if (d->string[0] != '-' && (info->plus || info->space) && info->zero)
 		{
 			ft_putchar(info->plus ? '+' : ' ');
-			ret++;
+			newret++;
 			info->width--;
+			info->space = 0;
+			info->plus = 0;
 		}
+		else if (d->string[0] != '-' && (info->plus || info->space))
+			info->width--;
 		if (d->neg && info->zero == 1)
-			ft_putchar(*d->string++);
+			ft_putchar(d->string[0]);
 		while (info->width - (info->prec - (ret - d->neg)) - ret > 0)
 		{
 			newret++;
@@ -167,26 +171,32 @@ int	print_long(t_form *info, t_data *d, int ret)
 			info->width--;
 		}
 		if (d->neg && !info->zero)
-			ft_putchar(*d->string++);
+			ft_putchar(d->string[0]);
+		if (d->string[0] != '-' && (info->plus || info->space))
+		{
+			ft_putchar(info->plus ? '+' : ' ');
+			newret++;
+		}
 		while (info->prec - (ret - d->neg) > 0)
 		{
 			newret++;
 			ft_putchar('0');
 			info->prec--;
 		}
-		if (*d->string == '0' && bck == 0)
-			newret--;
+		if (d->string[d->neg] == '0' && bck == 0)
+			(info->width <= 0 ? newret--: ft_putchar(' '));
 		else
-			ft_putstr(d->string);
+			ft_putstr(d->string + d->neg);
 	}
-	else if (info->left == 1)
+	else
 	{
 		if (d->string[0] == '-' && info->zero == 1)
-			ft_putchar(*d->string++);
+			ft_putchar(d->string[0]);
 		else if (d->string[0] != '-' && (info->plus || info->space))
 		{
 			ft_putchar(info->plus ? '+' : ' ');
-			ret++;
+			newret++;
+			info->width--;
 		}
 		while (info->prec - (ret) > 0)
 		{
@@ -197,10 +207,12 @@ int	print_long(t_form *info, t_data *d, int ret)
 				info->prec--;
 			newret++;
 		}
-		if (*d->string == '0' && bck == 0)
+		if (d->string[d->neg] == '0' && bck == 0)
+		{
 			newret--;
+		}
 		else
-			ft_putstr(d->string);
+			ft_putstr(d->string + d->neg);
 		while (info->width - ret > 0)
 		{
 			ft_putchar(' ');
@@ -210,6 +222,8 @@ int	print_long(t_form *info, t_data *d, int ret)
 	}
 	return (ret + newret);
 }
+
+
 
 int	do_info_norm(t_form *info, t_data *d, int newret, int ret)
 {
@@ -222,11 +236,10 @@ int	do_info_norm(t_form *info, t_data *d, int newret, int ret)
 				ft_putchar(*d->string++);
 				info->width--;
 			}
-			else if ((d->type == 'x' || d->type == 'X') && info->force)
+			else if ((d->type == 'x' || d->type == 'X') && info->force && info->zero)
 			{
 				ft_putchar(*d->string++);
 				ft_putchar(*d->string++);
-				info->width -= 2;
 			}
 		}
 		while (info->width - (info->prec - ret) - ret > 0)
@@ -244,7 +257,10 @@ int	do_info_norm(t_form *info, t_data *d, int newret, int ret)
 		if (*d->string == '0' && d->bck == 0 + (info->force * 2))
 			newret--;
 		else
+		{
 			ft_putstr(d->string);
+			info->force = 0;
+		}
 	}
 	return (newret);
 }
@@ -253,6 +269,11 @@ int	do_info_left(t_form *info, t_data *d, int newret, int ret)
 {
 	if (info->left == 1)
 	{
+		if ((d->type == 'x' || d->type == 'X') && info->force)
+		{
+			ft_putchar(*d->string++);
+			ft_putchar(*d->string++);
+		}
 		while (info->prec - ret > 0)
 		{
 			ft_putchar('0');
@@ -274,6 +295,134 @@ int	do_info_left(t_form *info, t_data *d, int newret, int ret)
 		}
 	}
 	return (newret);
+}
+int	calc_prec_left(t_form *info, t_data *d, int ret, int newret)
+{
+	while (info->prec - ret > 0)
+	{
+		ft_putchar('0');
+		if (info->width > 0)
+			info->width--;
+		if (info->prec > 0)
+			info->prec--;
+		newret++;
+	}
+		if (*d->string == '0' && d->bck == 0)
+			newret--;
+		else
+			ft_putstr(d->string + d->neg);
+	return (newret);
+}
+
+int	calc_width_left(t_form *info, int ret, int newret)
+{
+	while (info->width - ret > 0)
+	{
+		ft_putchar(' ');
+		info->width--;
+		newret++;
+	}
+	return (newret);
+}
+
+void	decide_force(t_form *info, t_data *d)
+{
+	if (!info->left && info->force)
+	{
+		if (d->type == 'o' || d->type == 'O')
+		{
+			ft_putchar(d->string[d->neg++]);
+		}
+		else if (d->type == 'x' || d->type == 'X')
+		{
+			ft_putchar(d->string[d->neg++]);
+			ft_putchar(d->string[d->neg++]);
+		}
+		else if (d->type == 'p')
+		{
+			ft_putchar(d->string[d->neg++]);
+			ft_putchar(d->string[d->neg++]);
+		}
+	}
+	else if (info->force)
+	{
+		if (d->type == 'p' && info->prec)
+		{
+			ft_putchar(d->string[d->neg++]);
+			ft_putchar(d->string[d->neg++]);
+		}
+		else if (d->type == 'o' || d->type == 'O')
+		{
+			ft_putchar(d->string[d->neg++]);
+		}
+		else if (d->type == 'x' || d->type == 'X')
+		{
+			ft_putchar(d->string[d->neg++]);
+			ft_putchar(d->string[d->neg++]);
+		}
+	}
+}
+
+int	calc_prec_norm(t_form *info, t_data *d, int ret, int newret)
+{
+	while (info->prec - (ret) > 0)
+	{
+		newret++;
+		ft_putchar('0');
+		info->prec--;
+	}
+	if (d->string[d->neg] == '0' && d->bck == 0 + (info->force * 2))
+		newret--;
+	else
+	{
+		if (d->string)
+			ft_putstr(d->string + d->neg);
+		info->force = 0;
+	}
+	return (newret);
+}
+
+int	calc_width_norm(t_form *info, t_data *d, int ret, int newret)
+{
+	while (info->width - (info->prec - ret) - ret > 0)
+	{
+		info->width--;
+		newret++;
+		ft_putchar(d->ospace);
+	}
+	return (newret);
+}
+
+int	print_unsigned(t_form *info, t_data *d, int ret)
+{
+	int newret;
+
+	newret = 0;
+	d->neg = 0;
+	d->bck = info->prec;
+	d->ospace = info->zero == 1  && info->prec < 0 ? '0' : ' ';
+	if (info->prec == -1 || (info->prec < ret && info->prec != 0))
+		info->prec = ret;
+	if (info->width == -1)
+		info->width = 0;
+	if (!info->left)
+	{
+		if (info->width > ret && info->zero)
+		{
+			decide_force(info, d);
+			info->force = 0;
+		}
+		newret = calc_width_norm(info, d, ret, newret);
+			decide_force(info, d);
+		newret = calc_prec_norm(info, d, ret, newret);
+	}
+	else
+	{
+		decide_force(info, d);
+		newret = calc_prec_left(info, d, ret, newret);
+		newret = calc_width_left(info, ret, newret);
+	}
+	return (newret + ret);
 }
 
 int	print_longu(t_form *info, t_data *d, int ret)
@@ -327,59 +476,30 @@ int	print_char(t_form *info, t_data *d, int ret)
 
 	return (newret);
 }
-/*
-   if (info->left == 0)
-   {
-   while (info->width - ret > 0)
-   {
-   ft_putchar(' ');
-   newret++;
-   info->width--;
-   }
-   while (info->zero == 1 && ret -1)
-   {
-   ft_putchar((*d->string));
-   d->string++;
-   }
-   ft_putchar((*d->string));
 
-   }
-   else if (info->left == 1)
-   {
-   ft_putchar(d->string[0]);
-   while (info->width - ret > 0)
-   {
-   ft_putchar(' ');
-   info->width--;
-   newret++;
-   }
-   }
-   return (ret + newret);
-   }*/
 int	do_info_normp(t_form *info, t_data *d, int newret, int ret)
 {
 	d->neg = 0;
 	if (info->left == 0)
 	{
-			if (info->zero)
-			{
-				ft_putchar(d->string[d->neg++]);
-				ft_putchar(d->string[d->neg++]);
-				info->bigsmall = 2;
-			}
+		if (info->zero)
+		{
+			ft_putchar(d->string[d->neg++]);
+			ft_putchar(d->string[d->neg++]);
+			info->bigsmall = 2;
+		}
 		while (info->width - (info->prec - ret) - ret > 0)
 		{
 			newret++;
 			ft_putchar(d->ospace);
 			info->width--;
 		}
-			if (d->type == 'p' && info->bigsmall != 2)
-			{
-				ft_putchar(d->string[d->neg++]);
-				ft_putchar(d->string[d->neg++]);
-				info->width -= 2;
-				info->bigsmall = 2;
-			}
+		if (info->bigsmall != 2)
+		{
+			ft_putchar(d->string[d->neg++]);
+			ft_putchar(d->string[d->neg++]);
+			info->bigsmall = 2;
+		}
 		while (info->prec - (ret) > 0)
 		{
 			newret++;
@@ -389,7 +509,7 @@ int	do_info_normp(t_form *info, t_data *d, int newret, int ret)
 		if (d->string[d->neg] == '0' && d->bck == 0)
 			newret--;
 		else
-		ft_putstr(d->string + d->neg);
+			ft_putstr(d->string + d->neg);
 	}
 	return (newret);
 }
@@ -398,6 +518,12 @@ int	do_info_leftp(t_form *info, t_data *d, int newret, int ret)
 {
 	if (info->left == 1)
 	{
+		if (info->prec)
+		{
+			ft_putchar(d->string[d->neg++]);
+			ft_putchar(d->string[d->neg++]);
+			info->bigsmall = 2;
+		}
 		while (info->prec - ret > 0)
 		{
 			ft_putchar('0');
@@ -410,7 +536,7 @@ int	do_info_leftp(t_form *info, t_data *d, int newret, int ret)
 		if (*d->string == '0' && d->bck == 0)
 			newret--;
 		else
-			ft_putstr(d->string);
+			ft_putstr(d->string + d->neg);
 		while (info->width - ret > 0)
 		{
 			ft_putchar(' ');
@@ -432,7 +558,7 @@ int	print_longp(t_form *info, t_data *d, int ret)
 		info->prec = ret;
 	if (info->width == -1)
 		info->width = 0;
-	newret = do_info_norm(info, d, newret, ret);
-	newret = do_info_left(info, d, newret, ret);
+	newret = do_info_normp(info, d, newret, ret);
+	newret = do_info_leftp(info, d, newret, ret);
 	return (ret + newret);
 }

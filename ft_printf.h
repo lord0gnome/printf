@@ -6,7 +6,7 @@
 /*   By: guiricha <guiricha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/09 14:46:03 by guiricha          #+#    #+#             */
-/*   Updated: 2016/03/08 15:36:00 by guiricha         ###   ########.fr       */
+/*   Updated: 2016/03/09 15:15:54 by guiricha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,8 @@ typedef union		u_type
 	wchar_t			wc;
 	wchar_t			*ws;
 	unsigned int	o;
-	long unsigned int O;
-	long long unsigned llu;
+	unsigned long int O;
+	unsigned long long	llu;
 	void			*p;
 	size_t			z;
 	intmax_t		im;
@@ -126,6 +126,7 @@ int					print_wstr(t_form *info, int ret, wchar_t *str);
 int					print_long(t_form *info, t_data *d, int ret);
 int					print_longu(t_form *info, t_data *d, int ret);
 int					print_longp(t_form *info, t_data *d, int ret);
+int					print_unsigned(t_form *i, t_data *d, int ret);
 int					print_char(t_form *info, t_data *d, int ret);
 int					print_short(t_form *info, t_data *d, int ret);
 int					ft_putcharspec(char n, char **str);

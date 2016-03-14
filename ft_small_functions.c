@@ -6,7 +6,7 @@
 /*   By: guiricha <guiricha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/09 15:03:28 by guiricha          #+#    #+#             */
-/*   Updated: 2016/03/08 14:03:24 by guiricha         ###   ########.fr       */
+/*   Updated: 2016/03/14 17:53:32 by guiricha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ int	reinit_form(t_form **form)
 	(*form)->percent = -1;
 	(*form)->type = 0;
 	(*form)->bigsmall = 0;
+	(*form)->nega = 0;
 	return (1);
 }
 
@@ -72,5 +73,6 @@ int	init_data(t_data **d)
 	(*d)->ospace = ' ';
 	(*d)->bck = -1;
 	(*d)->neg = 0;
+	(*d)->tmp = 0;
 	return (1);
 }

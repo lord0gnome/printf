@@ -6,7 +6,7 @@
 /*   By: guiricha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/23 13:41:18 by guiricha          #+#    #+#             */
-/*   Updated: 2016/03/08 15:37:38 by guiricha         ###   ########.fr       */
+/*   Updated: 2016/03/14 14:00:47 by guiricha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@ void	ft_putchar(char c)
 
 int		ft_putcharstr(char c, char **into, t_form *info)
 {
-	int len;
-	int ret;
-	int zeroes;
-	char *str;
+	int		len;
+	int		ret;
+	int		zeroes;
+	char	*str;
 
 	len = 1;
 	zeroes = ft_det_zeroes(len, info, 2);
@@ -38,14 +38,13 @@ int		ft_putcharstr(char c, char **into, t_form *info)
 	return (ret + len);
 }
 
-
 char	*ft_putstrstr(char *input, t_form *info)
 {
-	int len;
-	int ret;
-	int n;
-	char *str;
-	char *str2;
+	int		len;
+	int		ret;
+	int		n;
+	char	*str;
+	char	*str2;
 
 	n = 0;
 	len = 0;
@@ -62,10 +61,7 @@ char	*ft_putstrstr(char *input, t_form *info)
 	str = (char *)malloc(sizeof(char) * (len + 1));
 	str[len] = '\0';
 	ret = len;
-	while(len--)
-	{
-		str[n] = input ? input[n] : str2[n];
-		n++;
-	}
+	while (len--)
+		str[n++] = input ? input[n] : str2[n];
 	return (str);
 }

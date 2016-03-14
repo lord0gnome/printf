@@ -6,7 +6,7 @@
 /*   By: guiricha <guiricha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/09 14:49:10 by guiricha          #+#    #+#             */
-/*   Updated: 2016/03/14 12:27:16 by guiricha         ###   ########.fr       */
+/*   Updated: 2016/03/14 13:59:49 by guiricha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,7 @@ int			ft_printf(const char *restrict format, ...)
 	va_list	ap;
 	t_type	var;
 
-	if (!(reinit_form(&c)))
-		return (-1);
-	if (!(init_data(&d)))
+	if (!(reinit_form(&c)) || !(init_data(&d)))
 		return (-1);
 	va_start(ap, format);
 	result = NULL;

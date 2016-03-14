@@ -6,7 +6,7 @@
 /*   By: guiricha <guiricha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/13 15:33:39 by guiricha          #+#    #+#             */
-/*   Updated: 2016/03/14 13:12:21 by guiricha         ###   ########.fr       */
+/*   Updated: 2016/03/14 16:43:25 by guiricha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int		do_va_crap(va_list *current, t_data *d, t_type *var, t_form *info)
 			ft_putchar(d->type);
 		if ((!(isvalid(d->type)) || d->type == '%'))
 			ret++;
-		ret = ft_print_nocon(info, ret);
+		ret = print_nocon(info, ret);
 		if (info->left == 0 && (!(isvalid(d->type)) || d->type == '%'))
 			ft_putchar(d->type);
 	}
@@ -196,7 +196,7 @@ int		do_va_crap(va_list *current, t_data *d, t_type *var, t_form *info)
 			ret = ft_strlen(d->string = ft_itoabaseo(info, (var->uim), 8));
 			ret = print_unsigned(info, d, ret);
 		}
-			free(d->string - info->force);
+			free(d->string);
 	}
 	else if (d->type == 'p')
 	{
@@ -266,12 +266,15 @@ int		do_va_crap(va_list *current, t_data *d, t_type *var, t_form *info)
 	else if ((d->type == 'c' && info->type == 3) || d->type == 'C')
 	{
 		var->wc = (wchar_t)va_arg(*current, wchar_t);
-		ret = ft_putwidechar(&var->wc);
+		info->type = 'C';
+		info->prec = -1;
+		ret = get_wstrlen(&var->wc, info);
+		print_wstr(info, ret, &var->wc);
 	}
 	else if ((d->type == 's' && info->type == 3) || d->type == 'S')
 	{
 		var->ws = (wchar_t *)va_arg(*current, wchar_t *);
-		ret = get_wstrlen(var->ws, info->prec);
+		ret = get_wstrlen(var->ws, info);
 		ret = print_wstr(info, ret, var->ws);
 	}
 	return (ret);

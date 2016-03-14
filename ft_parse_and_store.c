@@ -6,13 +6,13 @@
 /*   By: guiricha <guiricha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/09 14:31:19 by guiricha          #+#    #+#             */
-/*   Updated: 2016/03/14 13:12:28 by guiricha         ###   ########.fr       */
+/*   Updated: 2016/03/14 13:47:32 by guiricha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	get_width_nd_prec(t_form *c, const char *restrict f, int i)
+int			get_width_nd_prec(t_form *c, const char *restrict f, int i)
 {
 	if (f[i] == '.' && (!isvalid(f[i + 1]) || f[i + 1] == '0'))
 	{
@@ -37,7 +37,59 @@ int	get_width_nd_prec(t_form *c, const char *restrict f, int i)
 	return (i);
 }
 
-int	modify_form(t_form *c, const char *restrict f, t_data *d)
+static void	modify_form2(int i, t_form *c, const char *restrict f)
+{
+	if (f[i] == '+')
+	{
+		c->plus = 1;
+		c->space = 0;
+	}
+	if (f[i] == ' ' && !c->plus)
+		c->space = 1;
+	if (f[i] == '-')
+	{
+		c->left = 1;
+		c->zero = 0;
+	}
+	if (f[i] == '0' && f[i - 1] != '.' && !c->left && (f[i - 1] == '%' ||
+				(!isnum(f[i - 1])) ||
+				((isnum(f[i - 1]) && f[i - 1] == '0'))) && c->prec == -1)
+		c->zero = 1;
+	if (f[i] == '#')
+		c->force = 1;
+	if (f[i] == 'h')
+		if (c->type < 3)
+			c->type = (c->type != 1) ? 1 : 2;
+	if (f[i] == 'l')
+		if (c->type < 5)
+			c->type = (c->type != 3 && c->type < 5) ? 3 : 4;
+}
+
+static int	modify_form3(int i, t_form *c, const char *restrict f)
+{
+	modify_form2(i, c, f);
+	if (f[i] == 'j')
+		c->type = 5;
+	if (f[i] == 'z')
+		c->type = 6;
+	if (!f[i + 1])
+		return (0);
+	return (1);
+}
+
+static int	modify_form4(int *i, t_form *c, const char *restrict f)
+{
+	if (f[*i] == '.' && (!isnum(f[*i + 1]) || f[*i + 1] == '0'))
+		c->prec = 0;
+	if (isnum(f[*i]) && f[*i] != '0')
+	{
+		*i = get_width_nd_prec(c, f, *i);
+		return (0);
+	}
+	return (1);
+}
+
+int			modify_form(t_form *c, const char *restrict f, t_data *d)
 {
 	int		i;
 
@@ -48,49 +100,17 @@ int	modify_form(t_form *c, const char *restrict f, t_data *d)
 		return (0);
 	while (isvalid(f[i]) && f[i])
 	{
-		if (f[i] == '.' && (!isnum(f[i + 1]) || f[i + 1] == '0'))
-			c->prec = 0;
-		if (isnum(f[i]) && f[i] != '0')
-		{
-			i = get_width_nd_prec(c, f, i);
+		if (!(modify_form4(&i, c, f)))
 			continue ;
-		}
 		if (f[i] == '%')
 		{
 			d->nargs++;
 			c->percent = 1;
 			return (i);
 		}
-		if (f[i] == '+')
-		{
-			c->plus = 1;
-			c->space = 0;
-		}
-		if (f[i] == ' ' && !c->plus)
-			c->space = 1;
-		if (f[i] == '-')
-		{
-			c->left = 1;
-			c->zero = 0;
-		}
-		if (f[i] == '0' && f[i - 1] != '.' && !c->left && (f[i - 1] == '%' || (!isnum(f[i - 1])) || ((isnum(f[i - 1]) && f[i - 1] == '0'))) && c->prec == -1)
-			c->zero = 1;
-		if (f[i] == '#')
-			c->force = 1;
-		if (f[i] == 'h')
-			if (c->type < 3)
-			c->type = (c->type != 1) ? 1: 2;
-		if (f[i] == 'l')
-			if (c->type < 5)
-			c->type = (c->type != 3 && c->type < 5) ? 3: 4;
-		if (f[i] == 'j')
-			c->type = 5;
-		if (f[i] == 'z')
-			c->type = 6;
-		if (f[i + 1])
-			i++;
-		else
-			break;
+		if (!(modify_form3(i, c, f)))
+			break ;
+		i++;
 	}
 	d->nargs++;
 	return (i);

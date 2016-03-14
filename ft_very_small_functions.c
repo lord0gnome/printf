@@ -6,14 +6,14 @@
 /*   By: guiricha <guiricha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/06 10:46:27 by guiricha          #+#    #+#             */
-/*   Updated: 2016/03/14 11:53:24 by guiricha         ###   ########.fr       */
+/*   Updated: 2016/03/14 14:02:06 by guiricha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include <stdlib.h>
 
-int	iscon(char c)
+int		iscon(char c)
 {
 	if (c == 's' || c == 'S' || c == 'p' || c == 'd' || c == 'D' || c == 'i'
 			|| c == 'o' || c == 'O' || c == 'u' || c == 'U' || c == 'x'
@@ -22,12 +22,12 @@ int	iscon(char c)
 	return (0);
 }
 
-int	isnum(char c)
+int		isnum(char c)
 {
 	return (c >= '0' && c <= '9' ? 1 : 0);
 }
 
-int	check_prec(const char *restrict format)
+int		check_prec(const char *restrict format)
 {
 	int	i;
 
@@ -39,7 +39,7 @@ int	check_prec(const char *restrict format)
 	return (0);
 }
 
-int	isvalid(char c)
+int		isvalid(char c)
 {
 	if (!isnum(c) && c != ' ' && c != '+' && c != '-' && c != '.' && c != '#'
 			&& c != 'l' && c != 'h' && c != 'z' && c != '%' && c != 'j')

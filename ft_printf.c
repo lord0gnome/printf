@@ -6,7 +6,7 @@
 /*   By: guiricha <guiricha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/09 14:49:10 by guiricha          #+#    #+#             */
-/*   Updated: 2016/03/14 13:59:49 by guiricha         ###   ########.fr       */
+/*   Updated: 2016/03/15 10:35:49 by guiricha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int	do_d_stuff(t_data *d, t_form **c, const char *restrict f, char *r)
 		return (-1);
 	d->i += read_until(f + d->i, r, d);
 	d->ib = d->i;
-	d->i += modify_form(*c, f + d->i, d);
+	d->i += modify_f(*c, f + d->i, d);
 	d->type = f[d->i];
 	d->string = NULL;
 	return (1);
@@ -45,7 +45,7 @@ int			ft_printf(const char *restrict format, ...)
 			return (-1);
 		if (d->nargs > 0)
 		{
-			d->retplusreal += do_va_crap(&ap, d, &var, c);
+			d->retplusreal += do_va(&ap, d, &var, c);
 			d->nargs--;
 			d->i++;
 		}

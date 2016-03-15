@@ -6,31 +6,36 @@
 /*   By: guiricha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 17:18:25 by guiricha          #+#    #+#             */
-/*   Updated: 2016/03/14 17:21:38 by guiricha         ###   ########.fr       */
+/*   Updated: 2016/03/15 10:17:21 by guiricha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	print_char(t_form *info, t_data *d, int ret)
+static void	print_char_norm(t_form *info, t_data *d, int ret, int *newret)
 {
-	int newret;
-
-	newret = 0;
-	d->neg = 0;
 	if (info->left == 0)
 	{
 		while (info->width - ret > 0)
 		{
 			ft_putchar(' ');
-			newret++;
+			*newret += 1;
 			info->width--;
 		}
-		newret += ret;
+		*newret += ret;
 		while (ret--)
 			ft_putchar(d->string[d->neg++]);
 	}
-	else
+}
+
+int			print_char(t_form *info, t_data *d, int ret)
+{
+	int newret;
+
+	newret = 0;
+	d->neg = 0;
+	print_char_norm(info, d, ret, &newret);
+	if (info->left)
 	{
 		newret += ret;
 		while (ret--)

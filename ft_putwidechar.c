@@ -6,7 +6,7 @@
 /*   By: guiricha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/25 08:43:41 by guiricha          #+#    #+#             */
-/*   Updated: 2016/03/14 16:26:05 by guiricha         ###   ########.fr       */
+/*   Updated: 2016/03/15 10:40:13 by guiricha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ int	ft_putwidestr(wchar_t *str, t_form *i)
 		n.binlen = binlen(n.v);
 		if (n.v == 0 && i->type != 'C')
 			break ;
-		if (!(func_test_all(n, i, &ret, str)))
+		if (!(test_chr(n, i, &ret, str)))
 			break ;
 		if (i->type == 'C' || !*++str)
 			break ;

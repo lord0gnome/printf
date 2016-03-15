@@ -6,7 +6,7 @@
 /*   By: guiricha <guiricha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/09 14:31:19 by guiricha          #+#    #+#             */
-/*   Updated: 2016/03/14 13:47:32 by guiricha         ###   ########.fr       */
+/*   Updated: 2016/03/15 10:23:46 by guiricha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ static int	modify_form4(int *i, t_form *c, const char *restrict f)
 	return (1);
 }
 
-int			modify_form(t_form *c, const char *restrict f, t_data *d)
+int			modify_f(t_form *c, const char *restrict f, t_data *d)
 {
 	int		i;
 

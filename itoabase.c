@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_itoabase.c                                      :+:      :+:    :+:   */
+/*   itoabase.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: guiricha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/02/24 14:06:07 by guiricha          #+#    #+#             */
-/*   Updated: 2016/03/14 13:50:20 by guiricha         ###   ########.fr       */
+/*   Created: 2016/03/15 10:22:19 by guiricha          #+#    #+#             */
+/*   Updated: 2016/03/15 10:22:20 by guiricha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include "ft_printf.h"
 
-char	*ft_itoabase(long long n, int base, char caps)
+char	*itoabase(long long n, int base, char caps)
 {
 	int			len;
 	long long	bck;
@@ -40,7 +40,7 @@ char	*ft_itoabase(long long n, int base, char caps)
 	return (ret);
 }
 
-char	*ft_itoabaseu(uintmax_t n, int base, char caps)
+char	*itoabaseu(uintmax_t n, int base, char caps)
 {
 	int			len;
 	size_t		bck;
@@ -62,7 +62,7 @@ char	*ft_itoabaseu(uintmax_t n, int base, char caps)
 	return (ret);
 }
 
-char	*ft_itoabaseo(t_form *info, size_t n, int base)
+char	*itoabaseo(t_form *info, size_t n, int base)
 {
 	int			len;
 	size_t		bck;
@@ -87,7 +87,7 @@ char	*ft_itoabaseo(t_form *info, size_t n, int base)
 	return (ret);
 }
 
-char	*ft_itoabasex(t_form *i, size_t n, int base, char caps)
+char	*itoabasex(t_form *i, size_t n, int base, char caps)
 {
 	int			len;
 	size_t		bck;
@@ -115,7 +115,7 @@ char	*ft_itoabasex(t_form *i, size_t n, int base, char caps)
 	return (ret);
 }
 
-char	*ft_itoabasep(t_form *i, size_t n, int base, char caps)
+char	*itoabasep(t_form *i, size_t n, int base, char caps)
 {
 	int			len;
 	size_t		bck;

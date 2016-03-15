@@ -6,13 +6,13 @@
 /*   By: guiricha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 14:18:56 by guiricha          #+#    #+#             */
-/*   Updated: 2016/03/14 16:32:40 by guiricha         ###   ########.fr       */
+/*   Updated: 2016/03/15 10:40:40 by guiricha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	func_test_all(t_mask n, t_form *i, int *ret, wchar_t *str)
+int	test_chr(t_mask n, t_form *i, int *ret, wchar_t *str)
 {
 	if (n.binlen <= 7)
 	{

@@ -6,38 +6,38 @@
 /*   By: guiricha <guiricha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/09 15:03:28 by guiricha          #+#    #+#             */
-/*   Updated: 2016/03/14 17:53:32 by guiricha         ###   ########.fr       */
+/*   Updated: 2016/03/15 10:41:54 by guiricha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include <stdlib.h>
 
-int	read_until(const char *restrict f, char *result, t_data *d)
+int	read_until(const char *restrict f, char *r, t_data *d)
 {
 	char	*bck;
 	int		i;
 
 	i = 0;
-	bck = result;
+	bck = r;
 	while (f[i] && f[i] != '%')
 		i++;
 	if (bck)
 	{
-		result = (char *)malloc(sizeof(char) * (i + 1) + ft_strlen(bck));
-		ft_strcpy(result, bck);
-		ft_strncpy(result + ft_strlen(bck), f, i);
-		result[ft_strlen(bck) + i] = '\0';
+		r = (char *)malloc(sizeof(char) * (i + 1) + ft_strlen(bck));
+		ft_strcpy(r, bck);
+		ft_strncpy(r + ft_strlen(bck), f, i);
+		r[ft_strlen(bck) + i] = '\0';
 	}
 	else
 	{
-		result = (char *)malloc(sizeof(char) * (i + 1));
-		ft_strncpy(result, f, i);
-		result[i] = '\0';
+		r = (char *)malloc(sizeof(char) * (i + 1));
+		ft_strncpy(r, f, i);
+		r[i] = '\0';
 	}
-	if (result)
-		ft_putstr(result);
-	free(result);
+	if (r)
+		ft_putstr(r);
+	free(r);
 	d->retplusreal += i;
 	return (i);
 }

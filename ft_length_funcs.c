@@ -6,7 +6,7 @@
 /*   By: guiricha <guiricha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/13 15:33:39 by guiricha          #+#    #+#             */
-/*   Updated: 2016/03/15 12:04:31 by guiricha         ###   ########.fr       */
+/*   Updated: 2016/03/17 10:38:00 by guiricha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static int	do_va3(va_list *now, t_data *d, t_type *var, t_form *i)
 	{
 		var->s = va_arg(*now, char *);
 		d->string = ft_putstrstr(var->s, i);
-		ret = strlen(d->string);
+		ret = ft_strlen(d->string);
 		ret = print_str(i, d, ret);
 		free(d->string);
 	}

@@ -6,7 +6,7 @@
 /*   By: guiricha <guiricha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/09 14:46:03 by guiricha          #+#    #+#             */
-/*   Updated: 2016/03/15 12:24:18 by guiricha         ###   ########.fr       */
+/*   Updated: 2016/06/02 16:39:37 by guiricha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,8 +88,9 @@ int						ft_printf(const char *restrict format, ...);
 int						do_va(va_list *now, t_data *d, t_type *var, t_form *i);
 int						read_until(const char *restrict f, char *r, t_data *d);
 int						reinit_form(t_form **form);
-int						init_data(t_data **d);
+int						init_data_prntf(t_data **d);
 int						modify_f(t_form *c, const char *restrict f, t_data *d);
+void					ft_putcharprntf(char c);
 int						isnum(char c);
 int						isvalid(char c);
 int						iscon(char c);
@@ -125,7 +126,7 @@ void					forceretcaps(char *str, int caps);
 int						test_chr(t_mask n, t_form *i, int *ret, wchar_t *str);
 int						ft_det_zeroes(int len, t_form *info, int sign);
 int						ft_det_zeroes_ptr(int len, t_form *info, int sign);
-int						ft_putcharstr(char c, char **into, t_form *info);
+int						ft_putcharprntfstr(char c, char **into, t_form *info);
 int						ft_putwidechar(wchar_t *chr);
 int						ft_putwidestr(wchar_t *chr, t_form *i);
 int						get_wstrlen(wchar_t *chr, t_form *i);
@@ -136,7 +137,6 @@ char					*ft_strcpy(char *src, const char *dst);
 char					*ft_strncpy(char *src, const char *dst, size_t n);
 void					ft_putstr(char const *s);
 void					ft_putnbr(int n);
-void					ft_putchar(char c);
 void					*ft_memset(void *b, int c, size_t n);
 size_t					ft_strlen(const char *str);
 

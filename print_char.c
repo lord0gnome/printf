@@ -18,13 +18,13 @@ static void	print_char_norm(t_form *info, t_data *d, int ret, int *newret)
 	{
 		while (info->width - ret > 0)
 		{
-			ft_putchar(' ');
+			ft_putcharprntf(' ');
 			*newret += 1;
 			info->width--;
 		}
 		*newret += ret;
 		while (ret--)
-			ft_putchar(d->string[d->neg++]);
+			ft_putcharprntf(d->string[d->neg++]);
 	}
 }
 
@@ -39,11 +39,11 @@ int			print_char(t_form *info, t_data *d, int ret)
 	{
 		newret += ret;
 		while (ret--)
-			ft_putchar(d->string[d->neg++]);
+			ft_putcharprntf(d->string[d->neg++]);
 		ret = newret;
 		while (info->width - ret > 0)
 		{
-			ft_putchar(' ');
+			ft_putcharprntf(' ');
 			newret++;
 			info->width--;
 		}

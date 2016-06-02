@@ -21,17 +21,17 @@ static int	do_va2(va_list *now, t_data *d, t_type *var, t_form *i)
 	if (!iscon(d->type))
 	{
 		if (i->left == 1 && (!(isvalid(d->type)) || d->type == '%'))
-			ft_putchar(d->type);
+			ft_putcharprntf(d->type);
 		if ((!(isvalid(d->type)) || d->type == '%'))
 			ret++;
 		ret = print_nocon(i, ret);
 		if (i->left == 0 && (!(isvalid(d->type)) || d->type == '%'))
-			ft_putchar(d->type);
+			ft_putcharprntf(d->type);
 	}
 	else if (d->type == 'c' && i->type != 3)
 	{
 		var->c = (char)va_arg(*now, int);
-		if ((ret = ft_putcharstr(var->c, &(d->string), i)) == -1)
+		if ((ret = ft_putcharprntfstr(var->c, &(d->string), i)) == -1)
 			return (-1);
 		ret = print_char(i, d, ret);
 		free(d->string);

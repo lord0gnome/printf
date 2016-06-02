@@ -18,17 +18,17 @@ void	decide_force_left(t_form *info, t_data *d)
 	{
 		if (d->type == 'p' && info->prec)
 		{
-			ft_putchar(d->string[info->nega++]);
-			ft_putchar(d->string[info->nega++]);
+			ft_putcharprntf(d->string[info->nega++]);
+			ft_putcharprntf(d->string[info->nega++]);
 		}
 		else if (d->type == 'o' || d->type == 'O')
 		{
-			ft_putchar(d->string[info->nega++]);
+			ft_putcharprntf(d->string[info->nega++]);
 		}
 		else if (d->type == 'x' || d->type == 'X')
 		{
-			ft_putchar(d->string[info->nega++]);
-			ft_putchar(d->string[info->nega++]);
+			ft_putcharprntf(d->string[info->nega++]);
+			ft_putcharprntf(d->string[info->nega++]);
 		}
 	}
 }
@@ -41,17 +41,17 @@ void	decide_force(t_form *info, t_data *d)
 		{
 			if (d->type == 'o' || d->type == 'O')
 			{
-				ft_putchar(d->string[info->nega++]);
+				ft_putcharprntf(d->string[info->nega++]);
 			}
 			else if (d->type == 'x' || d->type == 'X')
 			{
-				ft_putchar(d->string[info->nega++]);
-				ft_putchar(d->string[info->nega++]);
+				ft_putcharprntf(d->string[info->nega++]);
+				ft_putcharprntf(d->string[info->nega++]);
 			}
 			else if (d->type == 'p')
 			{
-				ft_putchar(d->string[info->nega++]);
-				ft_putchar(d->string[info->nega++]);
+				ft_putcharprntf(d->string[info->nega++]);
+				ft_putcharprntf(d->string[info->nega++]);
 			}
 		}
 		decide_force_left(info, d);

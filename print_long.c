@@ -15,20 +15,20 @@
 static void	do_norm2(t_form *info, t_data *d, int ret, int *newret)
 {
 	if (d->neg && !info->zero)
-		ft_putchar(d->string[0]);
+		ft_putcharprntf(d->string[0]);
 	if (d->string[0] != '-' && (info->plus || info->space))
 	{
-		ft_putchar(info->plus ? '+' : ' ');
+		ft_putcharprntf(info->plus ? '+' : ' ');
 		*newret += 1;
 	}
 	while (info->prec - (ret - d->neg) > 0)
 	{
 		*newret += 1;
-		ft_putchar('0');
+		ft_putcharprntf('0');
 		info->prec--;
 	}
 	if (d->string[d->neg] == '0' && d->bck == 0)
-		(info->width <= 0 ? *newret -= 1 : ft_putchar(' '));
+		(info->width <= 0 ? *newret -= 1 : ft_putcharprntf(' '));
 	else
 		ft_putstr(d->string + d->neg);
 }
@@ -39,7 +39,7 @@ static void	do_norm(t_form *info, t_data *d, int ret, int *newret)
 	{
 		if (d->string[0] != '-' && (info->plus || info->space) && info->zero)
 		{
-			ft_putchar(info->plus ? '+' : ' ');
+			ft_putcharprntf(info->plus ? '+' : ' ');
 			*newret += 1;
 			info->width--;
 			info->space = 0;
@@ -48,11 +48,11 @@ static void	do_norm(t_form *info, t_data *d, int ret, int *newret)
 		else if (d->string[0] != '-' && (info->plus || info->space))
 			info->width--;
 		if (d->neg && info->zero == 1)
-			ft_putchar(d->string[0]);
+			ft_putcharprntf(d->string[0]);
 		while (info->width - (info->prec - (ret - d->neg)) - ret > 0)
 		{
 			*newret += 1;
-			ft_putchar(d->ospace);
+			ft_putcharprntf(d->ospace);
 			info->width--;
 		}
 		do_norm2(info, d, ret, newret);
@@ -62,16 +62,16 @@ static void	do_norm(t_form *info, t_data *d, int ret, int *newret)
 static void	do_left(t_form *info, t_data *d, int ret, int *newret)
 {
 	if (d->string[0] == '-' && info->zero == 1)
-		ft_putchar(d->string[0]);
+		ft_putcharprntf(d->string[0]);
 	else if (d->string[0] != '-' && (info->plus || info->space))
 	{
-		ft_putchar(info->plus ? '+' : ' ');
+		ft_putcharprntf(info->plus ? '+' : ' ');
 		*newret += 1;
 		info->width--;
 	}
 	while (info->prec - (ret) > 0)
 	{
-		ft_putchar('0');
+		ft_putcharprntf('0');
 		if (info->width > 0)
 			info->width--;
 		if (info->prec > 0)
@@ -102,7 +102,7 @@ int			print_long(t_form *info, t_data *d, int ret)
 		do_left(info, d, ret, &newret);
 		while (info->width - ret > 0)
 		{
-			ft_putchar(' ');
+			ft_putcharprntf(' ');
 			info->width--;
 			newret++;
 		}

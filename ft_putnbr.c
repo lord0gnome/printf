@@ -20,7 +20,7 @@ void	ft_putnbr(int n)
 	{
 		if (n < 0)
 		{
-			ft_putchar('-');
+			ft_putcharprntf('-');
 			n = -n;
 		}
 		if (n >= 10)
@@ -29,6 +29,6 @@ void	ft_putnbr(int n)
 			ft_putnbr(n % 10);
 		}
 		else
-			ft_putchar(n + 48);
+			ft_putcharprntf(n + 48);
 	}
 }

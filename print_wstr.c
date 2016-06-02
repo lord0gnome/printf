@@ -19,9 +19,9 @@ static void	do_norm(t_form *info, wchar_t *str, int *newret, int count)
 		while (info->width - count > 0)
 		{
 			if (info->zero)
-				ft_putchar('0');
+				ft_putcharprntf('0');
 			else
-				ft_putchar(' ');
+				ft_putcharprntf(' ');
 			*newret += 1;
 			info->width--;
 		}
@@ -36,7 +36,7 @@ static void	do_left(t_form *info, wchar_t *str, int *newret, int ret)
 		ft_putwidestr(str, info);
 		while (info->width - ret > 0)
 		{
-			ft_putchar(' ');
+			ft_putcharprntf(' ');
 			info->width--;
 			*newret += 1;
 		}

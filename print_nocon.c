@@ -19,7 +19,7 @@ static void	do_norm(t_form *info, int ret, int *newret, char ospace)
 		while (info->width - ret > 0)
 		{
 			*newret += 1;
-			ft_putchar(ospace);
+			ft_putcharprntf(ospace);
 			if (info->width > 0)
 				info->width--;
 			if (info->prec > 0)
@@ -34,7 +34,7 @@ static void	do_left(t_form *info, int ret, int *newret, char ospace)
 	{
 		while (info->prec - info->width - ret > 0)
 		{
-			ft_putchar(ospace);
+			ft_putcharprntf(ospace);
 			if (info->width > 0)
 				info->width--;
 			if (info->prec > 0)
@@ -43,7 +43,7 @@ static void	do_left(t_form *info, int ret, int *newret, char ospace)
 		}
 		while (info->width - ret)
 		{
-			ft_putchar(ospace);
+			ft_putcharprntf(ospace);
 			info->width--;
 			*newret += 1;
 		}

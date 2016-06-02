@@ -17,7 +17,7 @@ int	calc_prec_left(t_form *info, t_data *d, int ret, int newret)
 {
 	while (info->prec - ret > 0)
 	{
-		ft_putchar('0');
+		ft_putcharprntf('0');
 		if (info->width > 0)
 			info->width--;
 		if (info->prec > 0)
@@ -35,7 +35,7 @@ int	calc_width_left(t_form *info, int ret, int newret)
 {
 	while (info->width - ret > 0)
 	{
-		ft_putchar(' ');
+		ft_putcharprntf(' ');
 		info->width--;
 		newret++;
 	}
@@ -47,7 +47,7 @@ int	calc_prec_norm(t_form *info, t_data *d, int ret, int newret)
 	while (info->prec - (ret) > 0)
 	{
 		newret++;
-		ft_putchar('0');
+		ft_putcharprntf('0');
 		info->prec--;
 	}
 	if (d->string[info->nega] == '0' && d->bck == 0 + (info->force * 2))
@@ -67,7 +67,7 @@ int	calc_width_norm(t_form *info, t_data *d, int ret, int newret)
 	{
 		info->width--;
 		newret++;
-		ft_putchar(d->ospace);
+		ft_putcharprntf(d->ospace);
 	}
 	return (newret);
 }

@@ -6,7 +6,7 @@
 /*   By: guiricha <guiricha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/09 15:03:28 by guiricha          #+#    #+#             */
-/*   Updated: 2016/03/15 12:47:06 by guiricha         ###   ########.fr       */
+/*   Updated: 2016/06/02 16:29:05 by guiricha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int			reinit_form(t_form **form)
 	return (1);
 }
 
-int			init_data(t_data **d)
+int			init_data_prntf(t_data **d)
 {
 	if (!(*d = (t_data *)malloc(sizeof(t_data))))
 		return (-1);

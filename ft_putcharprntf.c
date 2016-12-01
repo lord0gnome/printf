@@ -42,7 +42,6 @@ int		ft_putcharprntfstr(char c, char **into, t_form *info)
 char	*ft_putstrstr(char *input, t_form *info)
 {
 	int		len;
-	int		ret;
 	int		n;
 	char	*str;
 	char	*str2;
@@ -62,8 +61,10 @@ char	*ft_putstrstr(char *input, t_form *info)
 	if (!(str = (char *)malloc(sizeof(char) * (len + 1))))
 		return (NULL);
 	str[len] = '\0';
-	ret = len;
 	while (len--)
-		str[n++] = input ? input[n] : str2[n];
+	{
+		str[n] = input ? input[n] : str2[n];
+		n++;
+	}
 	return (str);
 }

@@ -16,6 +16,7 @@
 # include <wchar.h>
 # include <stdarg.h>
 # include <stdlib.h>
+# include <stdint.h>
 
 typedef struct			s_form
 {

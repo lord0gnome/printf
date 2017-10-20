@@ -6,7 +6,7 @@
 /*   By: guiricha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/23 13:41:18 by guiricha          #+#    #+#             */
-/*   Updated: 2016/06/23 14:59:10 by guiricha         ###   ########.fr       */
+/*   Updated: 2017/10/20 20:09:52 by guiricha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,15 +47,12 @@ char	*ft_putstrstr(char *input, t_form *info)
 	char	*str2;
 
 	n = 0;
-	len = 0;
+	len = 6;
 	str = NULL;
 	if (input)
 		len = ft_strlen(input);
 	else
-	{
 		str2 = "(null)\0";
-		len = 6;
-	}
 	if (info->prec != -1)
 		len = (info->prec < len ? info->prec : len);
 	if (!(str = (char *)malloc(sizeof(char) * (len + 1))))
